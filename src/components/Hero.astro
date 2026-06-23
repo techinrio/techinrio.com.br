@@ -1,0 +1,26 @@
+---
+import styles from '../styles/components/Hero.module.css';
+---
+
+<section class={styles.hero} aria-label="Apresentação">
+  <div class={styles.heroBg} aria-hidden="true"></div>
+  <div class={`container ${styles.heroContent}`}>
+    <div class={styles.heroTag} aria-hidden="true">
+      <span>&#9889;&#65039;</span> Atenção: chegou a Tech In Rio, hein? Vamos debugar, hein?
+    </div>
+    <h1 class={styles.heroTitle}>
+      Tecnologia com<br />
+      <span>a alma do Rio</span>
+    </h1>
+    <p class={styles.heroDesc}>
+      Você acabou de aportar na comunidade de tecnologia mais carioca de todo Brasil!
+    </p>
+    <p class={styles.heroDesc}>
+      Aqui não é só linhas de código, é gente, é cultura, é rock, samba, praia e é favela.
+    </p>
+    <div class={styles.heroActions}>
+      <a href="#sobre" class="btn btn--primary">Pega a visão</a>
+      <a href="#atividades" class="btn btn--outline">O que fazemos</a>
+    </div>
+  </div>
+</section>

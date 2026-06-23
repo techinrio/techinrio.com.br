@@ -1,0 +1,60 @@
+.about {
+  background: var(--gray-900);
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.aboutText p {
+  color: var(--gray-200);
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.aboutStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.statCard {
+  background: var(--gray-800);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--gray-700);
+  transition: border-color var(--transition);
+}
+
+.statCard:hover {
+  border-color: var(--orange);
+}
+
+.statCardNumber {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.statCardLabel {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+}
+
+@media (max-width: 900px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .aboutStats {
+    grid-template-columns: 1fr;
+  }
+}

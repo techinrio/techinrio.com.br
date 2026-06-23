@@ -1,0 +1,51 @@
+.connect {
+  background: var(--gray-900);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  transition: all var(--transition);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.cardIcon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.cardInfo h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+  color: var(--white);
+}
+
+.cardInfo p {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,38 @@
+.footer {
+  border-top: 1px solid var(--gray-800);
+  padding: 3rem 0;
+}
+
+.footerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.copy {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.links a {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+}
+
+.links a:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 700px) {
+  .footerInner {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,33 @@
+---
+import styles from '../styles/components/About.module.css';
+---
+
+<section id="sobre" class={`${styles.about} section`} aria-labelledby="sobre-title">
+  <div class="container">
+    <div class={styles.aboutGrid}>
+      <div class={styles.aboutText}>
+        <span class="section-label" aria-hidden="true">// sobre</span>
+        <h2 id="sobre-title" class="section-title">Quem somos</h2>
+        <p>
+          Nós somos mais do que tecnologia, somos a alma do Rio de Janeiro
+          em cada byte!
+        </p>
+      </div>
+
+      <div class={styles.aboutStats}>
+        <div class={styles.statCard}>
+          <div class={styles.statCardNumber}>2023</div>
+          <div class={styles.statCardLabel}>Ano de fundação</div>
+        </div>
+        <div class={styles.statCard}>
+          <div class={styles.statCardNumber}>10</div>
+          <div class={styles.statCardLabel}>Eventos realizados</div>
+        </div>
+        <div class={styles.statCard}>
+          <div class={styles.statCardNumber}>+3k</div>
+          <div class={styles.statCardLabel}>Pessoas na comunidade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

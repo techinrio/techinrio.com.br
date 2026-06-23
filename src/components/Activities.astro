@@ -1,0 +1,46 @@
+---
+import styles from '../styles/components/Activities.module.css';
+---
+
+<section id="atividades" class="section" aria-labelledby="atividades-title">
+  <div class="container">
+    <div class={styles.header}>
+      <span class="section-label" aria-hidden="true">// atividades</span>
+      <h2 id="atividades-title" class="section-title">O que a gente faz</h2>
+      <p class="section-desc">
+        A Tech In Rio não é só encontro, é movimento. A gente promove
+        troca de conhecimento e conexão entre pessoas que
+        fortalecem a tecnologia no Rio.
+      </p>
+    </div>
+
+    <div class={styles.grid}>
+      <article class={styles.pillar}>
+        <div class={styles.pillarIcon} aria-hidden="true">&#128209;</div>
+        <h3 class={styles.pillarTitle}>Eventos e meetups</h3>
+        <p class={styles.pillarDesc}>
+          Da Zona Sul à Zona Oeste, a gente reúne a comunidade pra trocar
+          ideia sobre tecnologia, carreira e mercado — presencial ou online.
+        </p>
+      </article>
+
+      <article class={styles.pillar}>
+        <div class={styles.pillarIcon} aria-hidden="true">&#128101;</div>
+        <h3 class={styles.pillarTitle}>Conexão de pessoas</h3>
+        <p class={styles.pillarDesc}>
+          Não importa se você é iniciante ou referência: aqui todo mundo
+          tem espaço pra aprender, ensinar e crescer junto.
+        </p>
+      </article>
+
+      <article class={styles.pillar}>
+        <div class={styles.pillarIcon} aria-hidden="true">&#127916;</div>
+        <h3 class={styles.pillarTitle}>Lives</h3>
+        <p class={styles.pillarDesc}>
+          Fazemos lives com diversos profissionais da área de tecnologia
+          e áreas correlatas pra trocar conhecimento e experiência.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>

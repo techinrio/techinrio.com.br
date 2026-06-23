@@ -1,0 +1,56 @@
+---
+import styles from '../styles/components/Nav.module.css';
+---
+
+<header class={styles.nav} role="banner">
+  <nav class={styles.navInner} aria-label="Navegação principal">
+    <a href="#" class={styles.navLogo} aria-label="Tech In Rio — início">
+      Tech<span>In</span>Rio
+    </a>
+
+    <button
+      class={styles.navToggle}
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="nav-list"
+      id="nav-toggle"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul id="nav-list" class={styles.navList} role="list">
+      <li><a href="#sobre">Quem somos</a></li>
+      <li><a href="#atividades">O que fazemos</a></li>
+      <li><a href="#conecte-se">Conecte-se</a></li>
+      <li>
+        <a href="#participe" class="btn btn--primary" style="padding:0.55rem 1.25rem;font-size:0.875rem;color:var(--black);">
+          Chega junto
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const list = document.getElementById('nav-list');
+
+  if (toggle && list) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isOpen);
+      list.classList.toggle('nav__list--open');
+      toggle.setAttribute('aria-label', isOpen ? 'Abrir menu' : 'Fechar menu');
+    });
+
+    list.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        list.classList.remove('nav__list--open');
+        toggle.setAttribute('aria-label', 'Abrir menu');
+      });
+    });
+  }
+</script>
