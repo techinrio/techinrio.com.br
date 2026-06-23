@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "description": "Agent profiles and rules for Tech In Rio landing page development",
+  "defaultAgent": "worker",
+  "agents": ["orchestrator", "frontend", "qa"],
+  "rules": ["git-workflow", "ai-working-style", "coding-style"],
+  "skills": {
+    "process": ["caveman", "gsd"]
+  },
+  "loadingOrder": [".agents/rules/*", ".agents/agents/*", ".agents/skills/*"]
+}
