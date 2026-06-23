@@ -42,14 +42,16 @@ import styles from '../styles/components/Nav.module.css';
     toggle.addEventListener('click', () => {
       const isOpen = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', !isOpen);
-      list.classList.toggle('nav__list--open');
+      list.setAttribute('data-open', !isOpen);
+      document.body.style.overflow = !isOpen ? 'hidden' : '';
       toggle.setAttribute('aria-label', isOpen ? 'Abrir menu' : 'Fechar menu');
     });
 
     list.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         toggle.setAttribute('aria-expanded', 'false');
-        list.classList.remove('nav__list--open');
+        list.setAttribute('data-open', 'false');
+        document.body.style.overflow = '';
         toggle.setAttribute('aria-label', 'Abrir menu');
       });
     });
