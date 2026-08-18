@@ -1,46 +1,96 @@
 ---
 import '../styles/global.css';
 import { email, sameAs } from '../data/socials.js';
+import { productionUrl, site } from '../data/site.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+}
+
+const { title = site.title, description = site.description, ogType = 'website' } = Astro.props;
+
+const origin = Astro.site ?? new URL(site.url);
+const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const imageUrl = new URL(site.ogImage.path, origin).href;
+const logoUrl = new URL(site.favicon, productionUrl).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Tech In Rio',
-  url: 'https://techinrio.com',
-  email,
-  sameAs,
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${productionUrl}/#organization`,
+      name: site.name,
+      url: productionUrl,
+      email,
+      description,
+      logo: logoUrl,
+      image: new URL(site.ogImage.path, productionUrl).href,
+      sameAs,
+      foundingDate: site.foundingDate,
+      areaServed: {
+        '@type': 'City',
+        name: 'Rio de Janeiro',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${productionUrl}/#website`,
+      name: site.name,
+      url: productionUrl,
+      description,
+      inLanguage: site.language,
+      publisher: {
+        '@id': `${productionUrl}/#organization`,
+      },
+    },
+  ],
 };
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={site.language}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tech In Rio — A comunidade mais carioca de todo Brasil!</title>
-    <meta name="description" content="Você acabou de aportar na comunidade de tecnologia mais carioca de todo Brasil!" />
-    <meta name="language" content="pt-BR" />
-    <meta name="keywords" content="tech, rio, rio de janeiro, tecnologia, comunidade, brasil, rj" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="language" content={site.language} />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content={site.themeColor} />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <meta property="og:title" content="Tech In Rio" />
-    <meta property="og:description" content="Você acabou de aportar na comunidade de tecnologia mais carioca de todo Brasil!" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content="/img/banner.png" />
-    <meta property="og:image:alt" content="Tech In Rio — A comunidade mais carioca de todo Brasil!" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:secure_url" content={imageUrl} />
+    <meta property="og:image:type" content={site.ogImage.type} />
+    <meta property="og:image:width" content={String(site.ogImage.width)} />
+    <meta property="og:image:height" content={String(site.ogImage.height)} />
+    <meta property="og:image:alt" content={site.ogImage.alt} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@techinrio" />
-    <meta name="twitter:creator" content="@techinrio" />
-    <meta name="twitter:image" content="/img/banner.png" />
-    <meta name="twitter:image:alt" content="Tech In Rio — A comunidade mais carioca de todo Brasil!" />
+    <meta name="twitter:site" content={site.twitter} />
+    <meta name="twitter:creator" content={site.twitter} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={site.ogImage.alt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
 
-    <link rel="icon" type="image/png" href="/img/symbol-sunset.png" />
+    <link rel="icon" type="image/png" href={site.favicon} />
+    <link rel="apple-touch-icon" href={site.appleTouchIcon} />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
