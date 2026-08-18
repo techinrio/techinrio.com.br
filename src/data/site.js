@@ -1,4 +1,4 @@
-export const productionUrl = 'https://techinrio.com';
+export const productionUrl = 'https://www.techinrio.com.br';
 
 export const site = {
   name: 'Tech In Rio',
