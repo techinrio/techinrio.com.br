@@ -17,7 +17,7 @@
   border: 1px solid var(--gray-700);
   border-radius: var(--radius);
   padding: 1.5rem 1.75rem;
-  transition: all var(--transition);
+  transition: border-color var(--transition), transform var(--transition);
   text-decoration: none;
   color: inherit;
 }
@@ -25,11 +25,32 @@
 .card:hover {
   border-color: var(--orange);
   transform: translateY(-2px);
+  color: inherit;
+}
+
+.featured {
+  grid-column: 1 / -1;
+  border-color: var(--orange);
 }
 
 .cardIcon {
-  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--orange);
+}
+
+.cardIcon :global(svg) {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.featured .cardIcon :global(svg) {
+  width: 1.85rem;
+  height: 1.85rem;
 }
 
 .cardInfo h3 {

@@ -22,6 +22,7 @@ Site institucional da Tech In Rio, a comunidade de tecnologia mais carioca de to
 src/
 ├── assets/       — imagens e recursos estáticos compilados
 ├── components/   — seções e blocos da página
+├── data/         — dados estáticos (canais e CTAs)
 ├── layouts/      — estrutura base das páginas
 └── pages/        — rotas do site
 
@@ -40,8 +41,10 @@ public/           — assets estáticos (favicon, logos, og-image)
 ## Links
 
 - [techinrio.com](https://techinrio.com)
-- [Instagram](https://instagram.com/techinrio)
-- [YouTube](https://youtube.com/@techinrio)
+- [WhatsApp](https://chat.whatsapp.com/I2qMkQsEZakHxNAkDQ8HuC)
+- [Instagram](https://www.instagram.com/techinrio/)
+- [YouTube](https://www.youtube.com/@techinrio)
 - [GitHub](https://github.com/techinrio)
 - [LinkedIn](https://www.linkedin.com/company/tech-in-rio/)
-- [Discord](https://discord.gg/9dWcBM647)
+- [X](https://x.com/techinrio)
+- [Telegram](https://t.me/techinrio)

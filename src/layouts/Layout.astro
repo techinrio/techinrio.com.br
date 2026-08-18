@@ -1,5 +1,15 @@
 ---
 import '../styles/global.css';
+import { email, sameAs } from '../data/socials.js';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Tech In Rio',
+  url: 'https://techinrio.com',
+  email,
+  sameAs,
+};
 ---
 
 <!doctype html>
@@ -32,6 +42,7 @@ import '../styles/global.css';
 
     <link rel="icon" type="image/png" href="/img/symbol-sunset.png" />
     <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <a href="#main" class="skip-link">Ir para o conteúdo</a>
