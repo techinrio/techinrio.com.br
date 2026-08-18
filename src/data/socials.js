@@ -50,13 +50,6 @@ export const channels = [
     description: 'Atualizações rápidas da comunidade',
     sameAs: true,
   },
-  {
-    id: 'telegram',
-    name: 'Telegram',
-    href: 'https://t.me/techinrio',
-    description: 'Canal e conversas da comunidade',
-    sameAs: true,
-  },
 ];
 
 export const sameAs = channels.filter((channel) => channel.sameAs).map((channel) => channel.href);
