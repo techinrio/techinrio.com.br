@@ -8,6 +8,10 @@ function resolveSite() {
   }
 
   if (process.env.VERCEL_ENV === 'production') {
+    if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+      return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+    }
+
     return productionUrl;
   }
 
