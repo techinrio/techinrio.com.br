@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# intermediate OG render (the committed asset is og-image.jpg)
+public/img/og-image.png
