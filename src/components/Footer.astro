@@ -1,13 +1,28 @@
 ---
 import styles from '../styles/components/Footer.module.css';
+import SocialIcon from './SocialIcon.astro';
+import { email, footerChannels } from '../data/socials.js';
 ---
 
 <footer class={styles.footer} role="contentinfo">
   <div class={`container ${styles.footerInner}`}>
-    <p class={styles.copy}>Tecnologia conectando pessoas e transformando vidas. &copy; 2025 Tech In Rio</p>
-    <ul class={styles.links}>
-      <li><a href="mailto:contato@techinrio.com">Contato</a></li>
-      <li><a href="https://github.com/techinrio" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-    </ul>
+    <p class={styles.copy}>Tecnologia conectando pessoas e transformando vidas. &copy; 2026 Tech In Rio</p>
+    <div class={styles.meta}>
+      <ul class={styles.socials} role="list">
+        {footerChannels.map((channel) => (
+          <li>
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${channel.name} da Tech In Rio (abre em nova aba)`}
+            >
+              <SocialIcon name={channel.id} />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href={`mailto:${email}`}>Contato</a>
+    </div>
   </div>
 </footer>

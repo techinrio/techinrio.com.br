@@ -1,5 +1,6 @@
 ---
 import styles from '../styles/components/Hero.module.css';
+import { community } from '../data/socials.js';
 ---
 
 <section class={styles.hero} aria-label="Apresentação">
@@ -19,8 +20,16 @@ import styles from '../styles/components/Hero.module.css';
       Aqui não é só linhas de código, é gente, é cultura, é rock, samba, praia e é favela.
     </p>
     <div class={styles.heroActions}>
-      <a href="#sobre" class="btn btn--primary">Pega a visão</a>
-      <a href="#atividades" class="btn btn--outline">O que fazemos</a>
+      <a
+        href={community.href}
+        class="btn btn--primary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {community.cta}
+        <span class="sr-only">abre em nova aba</span>
+      </a>
+      <a href="#sobre" class="btn btn--outline">Pega a visão</a>
     </div>
   </div>
 </section>
