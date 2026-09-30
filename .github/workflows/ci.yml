@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      # Cadastro de membro: cada pessoa só altera o próprio arquivo.
+      # Autor confiável (dono/membro da org/colaborador) é isento; a aprovação
+      # de administrador continua obrigatória via CODEOWNERS.
+      - name: Check member file authorship
+        env:
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+          ASSOC: ${{ github.event.pull_request.author_association }}
+        run: |
+          set -euo pipefail
+          dir="src/data/comunidade/"
+          changed="$(git -c core.quotepath=off diff --name-only HEAD^1 HEAD)"
+          if ! grep -q "^${dir}" <<<"$changed"; then
+            echo "PR não altera dados da comunidade."
+            exit 0
+          fi
+          case "$ASSOC" in
+            OWNER|MEMBER|COLLABORATOR) echo "Autor confiável ($ASSOC): checagem ignorada."; exit 0 ;;
+          esac
+          expected="${dir}$(tr '[:upper:]' '[:lower:]' <<<"$AUTHOR").yml"
+          bad=0
+          while IFS= read -r f; do
+            if [ "$f" != "$expected" ]; then
+              echo "::error file=$f::PR de membro só pode alterar $expected (autor: $AUTHOR)"
+              bad=1
+            fi
+          done <<<"$changed"
+          exit $bad
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      # O build valida os dados da comunidade (schema + regras em src/lib/comunidade.ts).
+      - run: yarn build
