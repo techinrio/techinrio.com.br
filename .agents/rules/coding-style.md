@@ -15,6 +15,7 @@
 - Page sections in `src/components/` as reusable blocks
 - Static assets in `public/`
 - Static data in `src/data/` when needed
+- Community data (`src/data/comunidade/`) is untrusted: render only with `{expr}` (auto-escaped), never `set:html`, and build links from validated fields only
 
 ## CSS
 

@@ -1,0 +1,50 @@
+---
+import styles from '../styles/components/Members.module.css';
+import { getMembers } from '../lib/comunidade';
+
+const members = await getMembers();
+---
+
+<section class={`${styles.members} section`} aria-labelledby="members-title">
+  <div class="container">
+    <span class="section-label" aria-hidden="true">// comunidade</span>
+    <h1 id="members-title" class="section-title">Quem faz a Tech In Rio</h1>
+    <p class="section-desc">
+      Pessoas que constroem a comunidade junto. Quer aparecer aqui? Abre uma Pull Request no GitHub.
+    </p>
+
+    {
+      members.length === 0 ? (
+        <p class={styles.empty}>Ainda não tem ninguém por aqui. Chega junto e seja a primeira pessoa!</p>
+      ) : (
+        <ul class={styles.grid} role="list">
+          {members.map((m) => (
+            <li>
+              <a
+                href={`https://github.com/${m.github}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={styles.card}
+              >
+                <h2>{m.nome}</h2>
+                <span class={styles.handle}>@{m.github}</span>
+                <p>{m.bio}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <p class={styles.contribute}>
+      <a
+        href="https://github.com/techinrio/techinrio.com.br/blob/master/CONTRIBUINDO.md"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn--outline"
+      >
+        Como entrar na comunidade
+      </a>
+    </p>
+  </div>
+</section>

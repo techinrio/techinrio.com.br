@@ -1,6 +1,6 @@
 import { productionUrl } from '../data/site.js';
 
-const pages = ['/'];
+const pages = ['/', '/comunidade/'];
 
 export function GET() {
   const origin = import.meta.env.SITE || productionUrl;

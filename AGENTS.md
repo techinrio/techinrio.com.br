@@ -27,20 +27,22 @@ Before any implementation task:
 1. `.agents/rules/ai-working-style.md` — operating principles
 2. `.agents/rules/coding-style.md` — code standards
 3. `docs/spec.md` — product specification
-4. `docs/brand-reference.md` — visual identity
+4. `docs/brand/brand-reference.md` — visual identity
 5. `docs/content-guidelines.md` — copy and tone
 
 ## Project Context
 
 - **Stack:** Astro 7 (static generation), pure CSS with custom properties, vanilla JS
-- **Scope:** Single landing page, no SSR, no SPA, no backend
+- **Scope:** Landing page + `/comunidade` (members from YAML in `src/data/comunidade/`, added only by Pull Request); no SSR, no SPA, no backend
 - **Language:** pt-BR (site content), English (agent documentation)
-- **Build:** `npm run build` — static output to `dist/`
-- **Dev server:** `npm run dev` — local at `localhost:4321`
+- **Package manager:** yarn (`yarn.lock`)
+- **Build:** `yarn build` — static output to `dist/`
+- **Dev server:** `yarn dev` — local at `localhost:4321`
+- **Hosting:** GitHub Pages via GitHub Actions, domain `techinrio.com.br`
 
 ## Definition of Done
 
-- [ ] Build passes (`npm run build`)
+- [ ] Build passes (`yarn build`)
 - [ ] Responsive layout verified
 - [ ] Accessibility validated (keyboard, focus, contrast, semantic HTML)
 - [ ] Colors and copy follow documentation
