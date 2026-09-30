@@ -1,0 +1,74 @@
+.members {
+  padding-top: calc(var(--nav-height) + 4rem);
+  min-height: 70vh;
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  transition: all var(--transition);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.card h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--white);
+  overflow-wrap: anywhere;
+}
+
+.handle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--orange);
+  overflow-wrap: anywhere;
+}
+
+.card p {
+  font-size: 0.9375rem;
+  color: var(--gray-200);
+  margin-top: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  margin-top: 3rem;
+  color: var(--gray-400);
+}
+
+.contribute {
+  margin-top: 3rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
