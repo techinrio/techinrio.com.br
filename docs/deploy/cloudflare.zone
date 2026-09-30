@@ -1,0 +1,15 @@
+; Registros de techinrio.com.br para GitHub Pages.
+; Importar em Cloudflare: DNS > Records > Import and Export.
+; Import é aditivo: apague antes os registros antigos da Vercel (ver MIGRACAO.md).
+; DNS only (cf-proxied:false) até o HTTPS do GitHub Pages estar ativo.
+$ORIGIN techinrio.com.br.
+$TTL 300
+@    IN A     185.199.108.153 ; cf_tags=cf-proxied:false
+@    IN A     185.199.109.153 ; cf_tags=cf-proxied:false
+@    IN A     185.199.110.153 ; cf_tags=cf-proxied:false
+@    IN A     185.199.111.153 ; cf_tags=cf-proxied:false
+@    IN AAAA  2606:50c0:8000::153 ; cf_tags=cf-proxied:false
+@    IN AAAA  2606:50c0:8001::153 ; cf_tags=cf-proxied:false
+@    IN AAAA  2606:50c0:8002::153 ; cf_tags=cf-proxied:false
+@    IN AAAA  2606:50c0:8003::153 ; cf_tags=cf-proxied:false
+www  IN CNAME techinrio.github.io. ; cf_tags=cf-proxied:false
