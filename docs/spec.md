@@ -121,3 +121,14 @@ O site será considerado pronto quando:
 - remova parceiros e nomes de pessoas da narrativa inicial
 - seja rápido, acessível e fácil de manter em Astro
 - sirva como base confiável para futuras expansões
+
+## 14. Módulo Comunidade
+
+Evolução posterior à v1: a rota `/comunidade/` lista os membros da comunidade. Isso é uma exceção deliberada ao §4 (nomes de pessoas fora da narrativa inicial): a v1 institucional continua sem pessoas na home; os membros vivem só na página própria.
+
+- Dados em `src/data/comunidade/<github>.yml` (minúsculas), com apenas `nome`, `github` e `bio`.
+- `github` é o identificador único; o link do perfil é gerado a partir dele.
+- Entrada e alteração somente por Pull Request; revisão aberta, aprovação e merge dos administradores. Não há cadastro direto pelo site.
+- Validação no build (schema em `src/content.config.ts` + `src/lib/comunidade.ts`); dados são tratados como não confiáveis (sem HTML, sem URLs, escaping do Astro).
+- Página 100% estática, sem API ou banco.
+- Passo a passo para contribuir: `CONTRIBUINDO.md`.
