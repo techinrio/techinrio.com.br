@@ -1,49 +1,35 @@
-# Tech In Rio — AI Agent Guide
+# AGENTS.md
 
-This file indexes the `.agents/` directory. AI agents MUST read this first to discover available rules, agent profiles, and how to operate in this project.
+## Stack
 
-## Agent System
+- Astro 7, static output (`dist/`). Deployed to GitHub Pages by GitHub Actions on every push to `master`.
+- Plain CSS with custom properties; one CSS Module per component in `src/styles/components/`. Vanilla JS only when unavoidable.
+- Package manager: yarn (`yarn.lock`). Node >= 22.12.
+- Commands: `yarn dev` (localhost:4321), `yarn build`, `yarn preview`.
 
-```text
-.agents/
-├── manifest.json              — machine-readable index
-├── rules/
-│   ├── ai-working-style.md    — how agents should operate
-│   ├── coding-style.md        — Astro/HTML/CSS/JS patterns
-│   └── git-workflow.md        — Conventional Commits and PRs
-├── agents/
-│   ├── orchestrator.md        — task breakdown and delegation
-│   ├── frontend.md            — UI, components, accessibility
-│   └── qa.md                  — validation and quality checks
-└── skills/
-    ├── caveman/SKILL.md       — terse mode for token efficiency
-    └── gsd/SKILL.md           — structured spec-driven planning
-```
+## Priorities
 
-## Mandatory Reading Order
+- Minimum client-side JavaScript. Minimum dependencies: do not add a library without maintainer approval.
+- Static only: no SSR, no backend, no API, no database.
+- Accessibility and SEO are requirements: semantic HTML, keyboard support, visible focus, contrast.
+- Small, reversible changes that match the surrounding code.
 
-Before any implementation task:
+## Rules
 
-1. `.agents/rules/ai-working-style.md` — operating principles
-2. `.agents/rules/coding-style.md` — code standards
-3. `docs/spec.md` — product specification
-4. `docs/brand/brand-reference.md` — visual identity
-5. `docs/content-guidelines.md` — copy and tone
+- Community member data (`src/data/comunidade/*.yml`) is untrusted input. Render it only through auto-escaped `{expr}`, never `set:html`. Members are added or changed only through Pull Requests. Never loosen the schema in `src/content.config.ts` or the checks in `src/lib/comunidade.ts`.
+- Never commit secrets, tokens or infrastructure details (DNS, hosting, accounts).
+- Branch from `master`, open a PR back to `master`. Never push to `master`. A human maintainer must review and merge; agents do not approve or merge.
+- Commits follow Conventional Commits. PR descriptions follow `.github/PULL_REQUEST_TEMPLATE.md`.
+- Site copy and everything in `docs/` are pt-BR. Code, identifiers and this file are English.
+- Do not change brand colors or typography outside `docs/brand/brand-reference.md`.
+- `yarn build` must pass before you finish.
 
-## Project Context
+## Documentation
 
-- **Stack:** Astro 7 (static generation), pure CSS with custom properties, vanilla JS
-- **Scope:** Landing page + `/comunidade` (members from YAML in `src/data/comunidade/`, added only by Pull Request); no SSR, no SPA, no backend
-- **Language:** pt-BR (site content), English (agent documentation)
-- **Package manager:** yarn (`yarn.lock`)
-- **Build:** `yarn build` — static output to `dist/`
-- **Dev server:** `yarn dev` — local at `localhost:4321`
-- **Hosting:** GitHub Pages via GitHub Actions, domain `techinrio.com.br`
-
-## Definition of Done
-
-- [ ] Build passes (`yarn build`)
-- [ ] Responsive layout verified
-- [ ] Accessibility validated (keyboard, focus, contrast, semantic HTML)
-- [ ] Colors and copy follow documentation
-- [ ] Commit follows `.agents/rules/git-workflow.md`
+- `docs/spec.md` — what the site is and its scope
+- `docs/brand/brand-reference.md` — visual identity
+- `docs/boas-praticas.md` — coding best practices
+- `docs/git-workflow.md` — branches, commits and pull requests
+- `docs/ADR-001-stack.md`, `docs/ADR-002-comunidade-e-github-pages.md` — architecture decisions
+- `CONTRIBUINDO.md` — contributor guide
+- `README.md` — project overview

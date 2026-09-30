@@ -1,134 +1,65 @@
-# Tech In Rio — Especificação do Site Institucional
+# Tech In Rio — Especificação do site
 
-## 1. Objetivo
+## 1. Propósito
 
-O novo site da Tech In Rio deve funcionar como a porta de entrada institucional da organização. A primeira versão precisa ser simples, confiável e fácil de manter, mas ainda assim carregar a personalidade da marca: tecnologia com identidade carioca, proximidade com a comunidade e energia de quem constrói junto.
+O site institucional da Tech In Rio (<https://www.techinrio.com.br>) é o ponto de partida para entender tudo sobre a comunidade: quem somos, o que fazemos, nossas atividades e eventos, e como participar. Ele reúne os canais oficiais e leva quem chega até eles.
 
-Este site não deve tentar repetir o site antigo. Ele deve aproveitar o tom humano, local e caloroso, mas reorganizar a narrativa para uma presença institucional mais madura e preparada para evoluir no futuro.
+Quem usa o site:
+- quem quer conhecer a Tech In Rio;
+- quem quer entrar na comunidade;
+- quem quer contribuir com o projeto ou aparecer na lista de membros.
 
-## 2. Direção da Marca
+## 2. Escopo atual
 
-O tom deve ser:
-- acolhedor, direto e comunitário
-- carioca sem caricatura
-- técnico sem ser frio
-- confiante sem parecer institucional demais
-- simples o suficiente para funcionar como base de longo prazo
+| Rota | O que é |
+|------|---------|
+| `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais) e faça parte |
+| `/comunidade/` | Lista dos membros da comunidade |
+| `/404.html` | Página de erro |
+| `/robots.txt`, `/sitemap.xml`, `/site.webmanifest` | Arquivos gerados no build para buscadores e navegadores |
 
-O site precisa transmitir:
-- pertencimento
-- movimento
-- credibilidade
-- abertura para novas pessoas
-- orgulho da origem local
+Os canais e chamadas para ação ficam em `src/data/socials.js`; os metadados do site, em `src/data/site.js`.
 
-## 3. O Que Preservar do Site Antigo
+## 3. Comunidade
 
-Do site legado, vale preservar principalmente:
-- a noção de comunidade
-- a linguagem que conecta tecnologia com Rio de Janeiro
-- a ideia de energia, proximidade e participação
-- a identidade visual com contrastes fortes e acento quente
-- a sensação de projeto vivo, não corporativo e engessado
+A rota `/comunidade/` apresenta as pessoas que fazem a Tech In Rio.
 
-## 4. O Que Não Deve Entrar na Primeira Versão
+- Cada membro é um arquivo `src/data/comunidade/<github>.yml`, com o username em minúsculas, e somente os campos `nome`, `github` e `bio`.
+- O `github` é o identificador único do membro. O link do perfil é gerado a partir dele.
+- Limites: `nome` até 80 caracteres e `bio` até 280. Os dois aceitam uma linha, sem HTML e sem links.
+- A lista é ordenada por nome e é totalmente estática.
+- A validação roda no build (`src/content.config.ts` e `src/lib/comunidade.ts`): dado inválido, arquivo com nome errado ou username duplicado impede o build.
+- Entrada e alteração de membros acontecem **somente por Pull Request**. A revisão é aberta a qualquer pessoa da comunidade, e a aprovação e o merge são de quem mantém o projeto. O CI também confere que a PR foi aberta pela própria pessoa cujo perfil está no arquivo.
+- Os dados são tratados como conteúdo não confiável: sem HTML, sem links arbitrários e com escaping em toda renderização.
 
-A primeira versão deve desconsiderar completamente:
-- lista de parceiros
-- patrocinadores
-- nomes de pessoas como elemento central da comunicação
-- galerias extensas de eventos passados
-- dependências de feed social ou conteúdo dinâmico para justificar a página
+Passo a passo para participar: [`CONTRIBUINDO.md`](../CONTRIBUINDO.md).
 
-Se houver menção a eventos ou iniciativas, isso deve aparecer apenas como contexto institucional e não como catálogo completo.
+## 4. Identidade visual
 
-## 5. Escopo da Primeira Versão
+Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](brand/brand-reference.md), que consolida o manual de identidade visual oficial da Tech In Rio. Toda mudança visual deve seguir esse guia.
 
-A estrutura inicial deve ser enxuta e clara:
-1. Hero principal com proposta de valor da Tech In Rio.
-2. Sobre a organização.
-3. O que a Tech In Rio faz ou representa.
-4. Como a comunidade pode se conectar ou acompanhar.
-5. Chamada final com contato, canais ou próximo passo.
+## 5. Performance
 
-## 6. Mensagem Central
+- Site estático gerado pelo Astro, com HTML pronto no build e sem JS por padrão.
+- O único JavaScript no cliente é o do menu mobile.
+- Imagens otimizadas e sem arquivos grandes desnecessários.
+- Fontes carregadas com `preconnect` e `display=swap`.
+- Bibliotecas apenas quando indispensáveis. Hoje a única dependência é o próprio Astro.
 
-A página deve responder rapidamente a estas perguntas:
-- O que é a Tech In Rio?
-- Por que ela existe?
-- Que tipo de comunidade ela constrói?
-- Como alguém novo entende o valor da organização em poucos segundos?
+## 6. Acessibilidade
 
-## 7. Conteúdo e Voz
+- Suporte completo a teclado, com link para pular ao conteúdo e foco sempre visível.
+- Contraste adequado entre texto e fundo.
+- Estrutura semântica de títulos e rótulos claros em links e botões.
+- Links que abrem em nova aba avisam isso a leitores de tela.
+- Textos alternativos úteis nas imagens e respeito a `prefers-reduced-motion`.
+- Não depender só de cor para comunicar informação.
 
-A escrita deve seguir estas regras:
-- priorizar frases curtas e compreensíveis
-- evitar jargões excessivos
-- manter uma cadência humana
-- usar expressão local com critério
-- evitar excesso de emojis, piadas internas ou exagero de informalidade
+## 7. SEO e compartilhamento
 
-## 8. Diretrizes de UX
-
-- navegação simples e previsível
-- hierarquia visual clara
-- CTAs objetivos
-- contraste adequado entre texto e fundo
-- espaçamento generoso
-- leitura confortável em mobile
-- sem blocos longos demais de texto sem respiro
-
-## 9. Diretrizes de Performance
-
-O projeto usa Astro com entrega estática e baixo custo de execução no cliente:
-- usar JS no cliente apenas quando realmente necessário
-- priorizar HTML semântico e componentes leves
-- otimizar imagens e evitar arquivos grandes sem necessidade
-- preservar carregamento rápido do hero e do conteúdo principal
-- evitar dependências pesadas para efeitos visuais simples
-
-## 10. Acessibilidade
-
-- suporte completo a teclado
-- foco visível
-- contraste adequado
-- textos alternativos úteis
-- estrutura semântica de headings
-- rótulos claros em links e botões
-- evitar depender apenas de cor para comunicar informação
-
-## 11. SEO e Compartilhamento
-
-- title e description consistentes com a identidade da marca
-- Open Graph e Twitter Cards bem configurados
-- imagem de compartilhamento alinhada ao manual de marca
-- idioma pt-BR configurado corretamente
-- uso de headings coerente com o conteúdo
-
-## 12. Evolução Futura
-
-A primeira versão deve ser pensada como fundação para:
-- páginas internas mais ricas
-- área de notícias ou novidades
-- conteúdo editorial sobre a comunidade
-- futuras seções sobre participação e projetos
-
-## 13. Critérios de Aceite
-
-O site será considerado pronto quando:
-- apresente a Tech In Rio como uma organização institucional clara
-- preserve o tom comunitário e carioca sem depender do site antigo
-- remova parceiros e nomes de pessoas da narrativa inicial
-- seja rápido, acessível e fácil de manter em Astro
-- sirva como base confiável para futuras expansões
-
-## 14. Módulo Comunidade
-
-Evolução posterior à v1: a rota `/comunidade/` lista os membros da comunidade. Isso é uma exceção deliberada ao §4 (nomes de pessoas fora da narrativa inicial): a v1 institucional continua sem pessoas na home; os membros vivem só na página própria.
-
-- Dados em `src/data/comunidade/<github>.yml` (minúsculas), com apenas `nome`, `github` e `bio`.
-- `github` é o identificador único; o link do perfil é gerado a partir dele.
-- Entrada e alteração somente por Pull Request; revisão aberta, aprovação e merge dos administradores. Não há cadastro direto pelo site.
-- Validação no build (schema em `src/content.config.ts` + `src/lib/comunidade.ts`); dados são tratados como não confiáveis (sem HTML, sem URLs, escaping do Astro).
-- Página 100% estática, sem API ou banco.
-- Passo a passo para contribuir: `CONTRIBUINDO.md`.
+- Idioma `pt-BR` configurado no documento.
+- `title` e `description` por página, com URL canônica.
+- Open Graph e Twitter Cards com imagem de 1200×630 (`public/img/og-image.jpg`, regenerada com `yarn generate:og`).
+- Dados estruturados (JSON-LD) da organização e do site.
+- `sitemap.xml`, `robots.txt` e `site.webmanifest` gerados no build.
+- A URL de produção está definida em `src/data/site.js`.

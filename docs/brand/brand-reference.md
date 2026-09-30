@@ -34,15 +34,6 @@ O arquivo oficial de marca é o `Manual ID Visual - Tech In Rio.pdf` disponível
 - Priorizar legibilidade em tamanhos pequenos e mobile
 - Reservar destaque tipográfico para títulos e chamadas institucionais
 
-## Tom de Voz
-
-- acolhedor, direto e comunitário
-- carioca sem caricatura
-- técnico sem ser frio
-- frases curtas e compreensíveis
-- usar expressão local com critério
-- evitar jargões excessivos
-
 ## Padrões de Layout
 
 - hero forte e direto

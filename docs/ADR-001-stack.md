@@ -1,31 +1,31 @@
-# ADR-001: Stack Tecnológica — Astro + HTML/CSS/JS Puro
+# ADR-001: Stack — Astro com HTML, CSS e JS puros
 
-**Status:** Aceito  
+**Status:** Aceito
 **Data:** 2025-06-22
-**Contexto:** Site institucional landing page, uma página, sem necessidade de SSR, SPA ou estado complexo.
+**Contexto:** Site institucional estático da Tech In Rio, sem necessidade de SSR, SPA ou estado complexo. Queremos um front-end enxuto, rápido, bom para SEO e fácil de desenvolver.
 
 ## Decisão
 
-- **Framework:** Astro 7 (geração estática, zero JS por padrão)
-- **Estilos:** CSS puro com variáveis customizadas (sem Tailwind, sem CSS-in-JS)
-- **Scripts:** JavaScript vanilla no cliente (sem React, sem frameworks JS)
-- **Ícones:** Unicode/emoji (sem bibliotecas de ícones)
+- **Framework:** Astro 7, com geração estática e zero JavaScript por padrão.
+- **Estilos:** CSS puro com custom properties, em CSS Modules por componente (sem Tailwind e sem CSS-in-JS).
+- **Scripts:** JavaScript vanilla no cliente, no mínimo possível (hoje, só o menu mobile). Sem React nem outros frameworks JS.
+- **Ícones:** SVG inline para as redes sociais e Unicode/emoji no restante, sem biblioteca de ícones.
+- **Dependências:** o mínimo possível. Hoje só o Astro.
 
 ## Motivação
 
-1. Landing page institucional tem escopo pequeno e bem definido — frameworks JS trazem complexidade sem benefício real.
-2. Astro entrega HTML estático com zero JS por padrão, alinhado às metas de performance.
-3. CSS puro com custom properties é suficiente para o tema escuro com acento laranja.
-4. Menos dependências = menos manutenção futura.
+1. O Astro gera HTML estático e não envia JS ao navegador por padrão, o que favorece performance e SEO.
+2. Com pouco JS e poucas bibliotecas, o site fica leve, previsível e barato de manter.
+3. CSS puro com custom properties é suficiente para o tema escuro com acento laranja da marca.
+4. Uma stack pequena facilita a contribuição de quem tem experiência básica em front-end, sem ferramentas específicas.
 
 ## Tradeoffs
 
-- Sem React, componentes não são reutilizáveis em potencial futuro app SPA — mas o escopo atual não justifica essa preocupação.
-- CSS puro sem utility-first exige mais disciplina manual de espaçamento e responsividade.
-- Se no futuro o site crescer para múltiplas páginas com estado complexo, pode valer migrar para React dentro do Astro.
+- Sem framework JS, interações ricas exigem mais trabalho manual. Se algum dia forem necessárias, avaliamos ilhas do Astro, sempre com o menor impacto possível.
+- CSS puro pede disciplina com espaçamento e responsividade.
 
 ## Consequências
 
-- Build puramente estático, deployável em qualquer CDN.
-- Manutenção de baixo custo: só HTML, CSS e JS sem transpilação.
-- Facilidade para qualquer pessoa desenvolvedora frontend contribuir sem conhecer ferramentas específicas.
+- Build totalmente estático, publicável em qualquer CDN ou hospedagem de arquivos estáticos.
+- Manutenção de baixo custo: HTML, CSS e JS sem etapas extras de transpilação.
+- Toda nova dependência precisa de justificativa e da aprovação de quem mantém o projeto.
