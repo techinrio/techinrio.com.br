@@ -1,0 +1,33 @@
+---
+import styles from '../styles/components/CTA.module.css';
+import { community, contribute } from '../data/socials.js';
+---
+
+<section id="participe" class="section" aria-labelledby="cta-title">
+  <div class={`container ${styles.cta}`}>
+    <h2 id="cta-title" class={styles.title}>Faça parte você também</h2>
+    <p class={styles.desc}>
+      Entra no grupo do WhatsApp e chega junto na Tech In Rio.
+      A comunidade é viva e feita por pessoas.
+    </p>
+    <div class={styles.actions}>
+      <a
+        href={community.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn--primary"
+      >
+        {community.cta}
+        <span class="sr-only">abre em nova aba</span>
+      </a>
+      <a
+        href={contribute.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn--outline"
+      >
+        {contribute.name}
+      </a>
+    </div>
+  </div>
+</section>
