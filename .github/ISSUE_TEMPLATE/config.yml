@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Quero entrar na comunidade
+    url: https://github.com/techinrio/techinrio.com.br/blob/master/CONTRIBUINDO.md
+    about: O cadastro é feito por Pull Request, não por Issue. Veja o passo a passo.
+  - name: Problema, dúvida ou sugestão
+    url: https://github.com/techinrio/techinrio.com.br/issues/new
+    about: Use uma Issue para problemas no site, dúvidas, sugestões ou discussão sobre o processo.
