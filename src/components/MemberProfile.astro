@@ -1,0 +1,68 @@
+---
+import { render } from 'astro:content';
+import styles from '../styles/components/MemberProfile.module.css';
+import Avatar from './Avatar.astro';
+import SocialIcon from './SocialIcon.astro';
+import type { Member } from '../lib/comunidade';
+
+interface Props {
+  member: Member;
+}
+
+const { member } = Astro.props;
+const { Content } = await render(member.entry);
+const temTexto = Boolean(member.entry.body?.trim());
+---
+
+<section class={`${styles.profile} section`} aria-labelledby="perfil-nome">
+  <div class="container">
+    <a href="/comunidade/" class={styles.back}>&larr; Comunidade</a>
+
+    <header class={styles.header}>
+      <Avatar nome={member.nome} foto={member.foto} size="lg" />
+      <div class={styles.headerInfo}>
+        <h1 id="perfil-nome" class={styles.name}>{member.nome}</h1>
+        <p class={styles.role}>{member.cargo}</p>
+        {
+          member.tags.length > 0 && (
+            <ul class={styles.tags} role="list" aria-label="Tags">
+              {member.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      temTexto && (
+        <div class={styles.bio}>
+          <Content />
+        </div>
+      )
+    }
+
+    {
+      member.links.length > 0 && (
+        <section class={styles.links} aria-labelledby="perfil-links">
+          <h2 id="perfil-links" class={styles.linksTitle}>Conecte-se comigo</h2>
+          <ul role="list">
+            {member.links.map((link) => (
+              <li>
+                <a href={link.href} target="_blank" rel={link.rel} class={styles.link}>
+                  <span class={styles.linkIcon} aria-hidden="true">
+                    <SocialIcon name={link.tipo} />
+                  </span>
+                  <span class="sr-only">{link.label}: </span>
+                  {link.texto}
+                  <span class="sr-only"> (abre em nova aba)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import styles from '../styles/components/Avatar.module.css';
+
+interface Props {
+  nome: string;
+  foto: string | null;
+  size?: 'md' | 'lg';
+  decorativa?: boolean;
+}
+
+const { nome, foto, size = 'md', decorativa = false } = Astro.props;
+
+const palavras = nome.split(/\s+/).filter(Boolean);
+const iniciais = (
+  palavras.length > 1 ? palavras[0][0] + palavras[palavras.length - 1][0] : (palavras[0] ?? '?').slice(0, 2)
+).toUpperCase();
+const px = size === 'lg' ? 144 : 56;
+---
+
+<span class={`${styles.avatar} ${size === 'lg' ? styles.lg : ''}`}>
+  {
+    foto ? (
+      <img
+        src={foto}
+        alt={decorativa ? '' : `Foto de ${nome}`}
+        width={px}
+        height={px}
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+      />
+    ) : (
+      <span class={styles.iniciais} aria-hidden="true">
+        {iniciais}
+      </span>
+    )
+  }
+</span>

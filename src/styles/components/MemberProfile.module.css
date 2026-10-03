@@ -1,0 +1,127 @@
+.profile {
+  padding-top: calc(var(--nav-height) + 3rem);
+  min-height: 70vh;
+}
+
+.profile :global(.container) {
+  max-width: 760px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.headerInfo {
+  min-width: 0;
+}
+
+.name {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.role {
+  margin-top: 0.35rem;
+  font-size: 1.125rem;
+  color: var(--gray-200);
+  overflow-wrap: anywhere;
+}
+
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tags li {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--orange);
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.bio {
+  margin-top: 2.5rem;
+  color: var(--gray-200);
+  overflow-wrap: anywhere;
+}
+
+.bio :global(p) {
+  margin-bottom: 1rem;
+}
+
+.bio :global(ul),
+.bio :global(ol) {
+  margin: 0 0 1rem 1.5rem;
+}
+
+.bio :global(strong) {
+  color: var(--white);
+}
+
+.links {
+  margin-top: 3rem;
+}
+
+.linksTitle {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+
+.links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--white);
+  overflow-wrap: anywhere;
+}
+
+.link:hover {
+  color: var(--orange-light);
+}
+
+.linkIcon {
+  display: inline-flex;
+  color: var(--orange);
+}
+
+.linkIcon :global(svg) {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}
