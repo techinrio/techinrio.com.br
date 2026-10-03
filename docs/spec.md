@@ -29,6 +29,7 @@ A rota `/comunidade/` lista as pessoas que fazem a Tech In Rio, e cada pessoa te
 - Campos do frontmatter: `nome` e `cargo` (obrigatórios), `github`, `foto`, `tags` e `links` (opcionais). O corpo do arquivo é um texto opcional em Markdown.
 - `links` aceita `site` (URL https) e os usuários de `linkedin`, `instagram`, `youtube` e `x`. O link do GitHub vem do campo `github`.
 - A foto pode ser uma URL https externa ou um arquivo em `public/img/comunidade/` (até 200 KB). Sem `foto`, usa-se a foto do GitHub, se houver `github`, ou as iniciais da pessoa.
+- Cada perfil tem um menu **Compartilhar**: copiar o link, LinkedIn, X, WhatsApp e Facebook (links simples para a tela de compartilhamento de cada rede, sem scripts de terceiros), compartilhamento nativo do celular quando disponível e o download do cartão do membro em PNG.
 - A lista é ordenada por nome e é totalmente estática. Cada cartão mostra foto, nome e cargo e leva ao perfil.
 - A validação roda no build (`src/content.config.ts` e `src/lib/comunidade.ts`): dado inválido, arquivo com nome fora do padrão, `github` duplicado, foto fora das regras ou arquivo solto impede o build.
 - Entrada, alteração e remoção de perfis acontecem **somente por Pull Request**. A revisão é aberta a qualquer pessoa da comunidade, e a aprovação e o merge são de quem mantém o projeto. O CI confere que quem não é da organização altera apenas o próprio perfil: o `github` do arquivo precisa ser o de quem abriu a PR.
@@ -43,10 +44,10 @@ Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](b
 ## 5. Performance
 
 - Site estático gerado pelo Astro, com HTML pronto no build e sem JS por padrão.
-- O único JavaScript no cliente é o do menu mobile.
+- O JavaScript no cliente se limita ao menu mobile e aos botões *Copiar link* e *Mais opções* do menu de compartilhar.
 - Imagens otimizadas e sem arquivos grandes desnecessários.
 - Fontes carregadas com `preconnect` e `display=swap`.
-- Bibliotecas apenas quando indispensáveis. Hoje a única dependência é o próprio Astro.
+- Bibliotecas apenas quando indispensáveis. Além do Astro, usamos `satori` e `sharp` apenas no build, para gerar os cartões de compartilhamento (ADR-004).
 
 ## 6. Acessibilidade
 
@@ -62,6 +63,7 @@ Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](b
 - Idioma `pt-BR` configurado no documento.
 - `title` e `description` por página, com URL canônica.
 - Open Graph e Twitter Cards com imagem de 1200×630 (`public/img/og-image.jpg`, regenerada com `yarn generate:og`).
+- Cada perfil de membro tem o seu próprio cartão de compartilhamento (foto, nome, cargo, tags e "Membro oficial da Tech In Rio"), gerado no build e usado em `og:image` e `twitter:image`.
 - Dados estruturados (JSON-LD) da organização e do site.
 - `sitemap.xml`, `robots.txt` e `site.webmanifest` gerados no build.
 - A URL de produção está definida em `src/data/site.js`.

@@ -6,14 +6,22 @@ import { productionUrl, site } from '../data/site.js';
 interface Props {
   title?: string;
   description?: string;
-  ogType?: 'website' | 'article';
+  ogType?: 'website' | 'article' | 'profile';
+  image?: { path: string; alt: string; width?: number; height?: number; type?: string };
 }
 
-const { title = site.title, description = site.description, ogType = 'website' } = Astro.props;
+const { title = site.title, description = site.description, ogType = 'website', image } = Astro.props;
+const og = {
+  path: image?.path ?? site.ogImage.path,
+  alt: image?.alt ?? site.ogImage.alt,
+  width: image?.width ?? site.ogImage.width,
+  height: image?.height ?? site.ogImage.height,
+  type: image?.type ?? site.ogImage.type,
+};
 
 const origin = Astro.site ?? new URL(site.url);
 const canonicalUrl = new URL(Astro.url.pathname, origin).href;
-const imageUrl = new URL(site.ogImage.path, origin).href;
+const imageUrl = new URL(og.path, origin).href;
 const logoUrl = new URL(site.favicon, productionUrl).href;
 
 const jsonLd = {
@@ -71,10 +79,10 @@ const jsonLd = {
     <meta property="og:site_name" content={site.name} />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:secure_url" content={imageUrl} />
-    <meta property="og:image:type" content={site.ogImage.type} />
-    <meta property="og:image:width" content={String(site.ogImage.width)} />
-    <meta property="og:image:height" content={String(site.ogImage.height)} />
-    <meta property="og:image:alt" content={site.ogImage.alt} />
+    <meta property="og:image:type" content={og.type} />
+    <meta property="og:image:width" content={String(og.width)} />
+    <meta property="og:image:height" content={String(og.height)} />
+    <meta property="og:image:alt" content={og.alt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content={site.twitter} />
@@ -82,7 +90,7 @@ const jsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <meta name="twitter:image:alt" content={site.ogImage.alt} />
+    <meta name="twitter:image:alt" content={og.alt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

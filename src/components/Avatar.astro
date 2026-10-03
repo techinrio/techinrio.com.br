@@ -1,5 +1,6 @@
 ---
 import styles from '../styles/components/Avatar.module.css';
+import { iniciais } from '../lib/comunidade';
 
 interface Props {
   nome: string;
@@ -10,10 +11,6 @@ interface Props {
 
 const { nome, foto, size = 'md', decorativa = false } = Astro.props;
 
-const palavras = nome.split(/\s+/).filter(Boolean);
-const iniciais = (
-  palavras.length > 1 ? palavras[0][0] + palavras[palavras.length - 1][0] : (palavras[0] ?? '?').slice(0, 2)
-).toUpperCase();
 const px = size === 'lg' ? 144 : 56;
 ---
 
@@ -31,7 +28,7 @@ const px = size === 'lg' ? 144 : 56;
       />
     ) : (
       <span class={styles.iniciais} aria-hidden="true">
-        {iniciais}
+        {iniciais(nome)}
       </span>
     )
   }

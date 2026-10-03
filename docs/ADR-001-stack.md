@@ -8,9 +8,9 @@
 
 - **Framework:** Astro 7, com geração estática e zero JavaScript por padrão.
 - **Estilos:** CSS puro com custom properties, em CSS Modules por componente (sem Tailwind e sem CSS-in-JS).
-- **Scripts:** JavaScript vanilla no cliente, no mínimo possível (hoje, só o menu mobile). Sem React nem outros frameworks JS.
+- **Scripts:** JavaScript vanilla no cliente, no mínimo possível (hoje, o menu mobile e o menu de compartilhar). Sem React nem outros frameworks JS.
 - **Ícones:** SVG inline para as redes sociais e Unicode/emoji no restante, sem biblioteca de ícones.
-- **Dependências:** o mínimo possível. Hoje só o Astro.
+- **Dependências:** o mínimo possível. Hoje o Astro e, só para gerar imagens no build, `satori` e `sharp` ([ADR-004](ADR-004-cartao-de-compartilhamento.md)).
 
 ## Motivação
 
