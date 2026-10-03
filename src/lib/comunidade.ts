@@ -28,6 +28,12 @@ export type Member = {
   entry: CollectionEntry<'comunidade'>;
 };
 
+export function iniciais(nome: string) {
+  const palavras = nome.split(/\s+/).filter(Boolean);
+  const duas = palavras.length > 1 ? palavras[0][0] + palavras[palavras.length - 1][0] : (palavras[0] ?? '?').slice(0, 2);
+  return duas.toUpperCase();
+}
+
 // Modelo do arquivo oferecido no botão "Criar meu perfil".
 const MODELO = `---
 nome: Seu Nome

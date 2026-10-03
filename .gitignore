@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # intermediate OG render (the committed asset is og-image.jpg)
 public/img/og-image.png
+
+# cache dos cartões de compartilhamento (branch og-cache)
+.og-cache/
+.og-new/
