@@ -8,10 +8,10 @@ O site é o ponto de partida para conhecer a comunidade, as atividades e os even
 
 - [Astro](https://astro.build) 7, com geração estática e zero JavaScript por padrão
 - CSS puro com custom properties (um CSS Module por componente)
-- JavaScript vanilla, só onde não há alternativa (hoje, o menu mobile)
+- JavaScript vanilla, só onde não há alternativa (hoje, o menu mobile e o menu de compartilhar)
 - Hospedagem no GitHub Pages, com deploy por GitHub Actions
 
-Mantemos o mínimo de JavaScript e de bibliotecas possível. As decisões estão em [`docs/`](docs).
+Mantemos o mínimo de JavaScript e de bibliotecas possível. Além do Astro, só usamos `satori` e `sharp` para gerar, no build, o cartão de compartilhamento de cada membro. As decisões estão em [`docs/`](docs).
 
 ## Como rodar
 
@@ -62,7 +62,7 @@ Cada merge na `master` roda o build no GitHub Actions e publica o resultado no G
 - [`docs/brand/brand-reference.md`](docs/brand/brand-reference.md): identidade visual
 - [`docs/boas-praticas.md`](docs/boas-praticas.md): boas práticas de código
 - [`docs/git-workflow.md`](docs/git-workflow.md): fluxo de Git, commits e Pull Requests
-- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md), [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md) e [`docs/ADR-003-perfil-de-membro.md`](docs/ADR-003-perfil-de-membro.md): decisões de arquitetura
+- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md), [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md) e [`docs/ADR-003-perfil-de-membro.md`](docs/ADR-003-perfil-de-membro.md) e [`docs/ADR-004-cartao-de-compartilhamento.md`](docs/ADR-004-cartao-de-compartilhamento.md): decisões de arquitetura
 
 ## Contribuindo
 

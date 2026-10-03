@@ -22,6 +22,7 @@
 - Commits follow Conventional Commits. PR descriptions follow `.github/PULL_REQUEST_TEMPLATE.md`.
 - Site copy and everything in `docs/` are pt-BR. Code, identifiers and this file are English.
 - Do not change brand colors or typography outside `docs/brand/brand-reference.md`.
+- Member share cards are generated at build time and cached in the `og-cache` branch (never commit `.og-cache/` or `.og-new/`). Bump `CARD_VERSION` in `src/lib/og-membro.ts` when the card design changes.
 - `yarn build` must pass before you finish.
 
 ## Documentation
@@ -30,6 +31,6 @@
 - `docs/brand/brand-reference.md` — visual identity
 - `docs/boas-praticas.md` — coding best practices
 - `docs/git-workflow.md` — branches, commits and pull requests
-- `docs/ADR-001-stack.md`, `docs/ADR-002-comunidade-e-github-pages.md`, `docs/ADR-003-perfil-de-membro.md` — architecture decisions
+- `docs/ADR-001-stack.md`, `docs/ADR-002-comunidade-e-github-pages.md`, `docs/ADR-003-perfil-de-membro.md`, `docs/ADR-004-cartao-de-compartilhamento.md` — architecture decisions
 - `CONTRIBUINDO.md` — contributor guide
 - `README.md` — project overview

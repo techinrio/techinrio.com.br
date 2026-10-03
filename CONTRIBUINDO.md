@@ -50,6 +50,7 @@ Escreva aqui um texto sobre você. Pode usar **negrito**, *itálico* e listas:
 - **`tags`:** até 8, livres, com até 24 caracteres cada. Servem para tecnologias, áreas e interesses.
 - **`links`:** `site` recebe uma URL `https://…`. `linkedin`, `instagram`, `youtube` e `x` recebem só o usuário. O link do GitHub aparece sozinho, a partir do campo `github`.
 - **Texto:** até 2000 caracteres, só com parágrafos, negrito, itálico e listas. Não pode ter HTML, links, imagens, títulos nem linhas separadoras. Os links ficam no campo `links`.
+- **Cartão de compartilhamento:** cada perfil ganha um cartão (foto, nome, cargo e tags) que aparece quando o link é compartilhado e pode ser baixado em PNG pelo botão **Compartilhar**. Ele usa a foto do repositório ou a do GitHub. **Fotos de outros endereços aparecem só no perfil; no cartão entram as suas iniciais.** O cartão é gerado uma vez e não muda sozinho: se você trocar nome, cargo, tags ou a foto do repositório, ele é refeito.
 - **Só o seu perfil:** a PR deve alterar apenas o seu arquivo e a sua foto.
 
 ### Atualizar ou remover o seu perfil
