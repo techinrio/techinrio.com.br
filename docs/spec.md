@@ -15,6 +15,7 @@ Quem usa o site:
 |------|---------|
 | `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais) e faça parte |
 | `/comunidade/` | Lista dos membros da comunidade |
+| `/comunidade/<slug>/` | Perfil de cada membro |
 | `/404.html` | Página de erro |
 | `/robots.txt`, `/sitemap.xml`, `/site.webmanifest` | Arquivos gerados no build para buscadores e navegadores |
 
@@ -22,15 +23,16 @@ Os canais e chamadas para ação ficam em `src/data/socials.js`; os metadados do
 
 ## 3. Comunidade
 
-A rota `/comunidade/` apresenta as pessoas que fazem a Tech In Rio.
+A rota `/comunidade/` lista as pessoas que fazem a Tech In Rio, e cada pessoa tem uma página própria em `/comunidade/<slug>/`.
 
-- Cada membro é um arquivo `src/data/comunidade/<github>.yml`, com o username em minúsculas, e somente os campos `nome`, `github` e `bio`.
-- O `github` é o identificador único do membro. O link do perfil é gerado a partir dele.
-- Limites: `nome` até 80 caracteres e `bio` até 280. Os dois aceitam uma linha, sem HTML e sem links.
-- A lista é ordenada por nome e é totalmente estática.
-- A validação roda no build (`src/content.config.ts` e `src/lib/comunidade.ts`): dado inválido, arquivo com nome errado ou username duplicado impede o build.
-- Entrada e alteração de membros acontecem **somente por Pull Request**. A revisão é aberta a qualquer pessoa da comunidade, e a aprovação e o merge são de quem mantém o projeto. O CI também confere que a PR foi aberta pela própria pessoa cujo perfil está no arquivo.
-- Os dados são tratados como conteúdo não confiável: sem HTML, sem links arbitrários e com escaping em toda renderização.
+- Cada membro é um arquivo Markdown `src/data/comunidade/<slug>.md`. O slug é o nome da pessoa em minúsculas, sem acento e com hífen (`maria-silva`), e é o identificador do membro.
+- Campos do frontmatter: `nome` e `cargo` (obrigatórios), `github`, `foto`, `tags` e `links` (opcionais). O corpo do arquivo é um texto opcional em Markdown.
+- `links` aceita `site` (URL https) e os usuários de `linkedin`, `instagram`, `youtube` e `x`. O link do GitHub vem do campo `github`.
+- A foto pode ser uma URL https externa ou um arquivo em `public/img/comunidade/` (até 200 KB). Sem `foto`, usa-se a foto do GitHub, se houver `github`, ou as iniciais da pessoa.
+- A lista é ordenada por nome e é totalmente estática. Cada cartão mostra foto, nome e cargo e leva ao perfil.
+- A validação roda no build (`src/content.config.ts` e `src/lib/comunidade.ts`): dado inválido, arquivo com nome fora do padrão, `github` duplicado, foto fora das regras ou arquivo solto impede o build.
+- Entrada, alteração e remoção de perfis acontecem **somente por Pull Request**. A revisão é aberta a qualquer pessoa da comunidade, e a aprovação e o merge são de quem mantém o projeto. O CI confere que quem não é da organização altera apenas o próprio perfil: o `github` do arquivo precisa ser o de quem abriu a PR.
+- Os dados são tratados como conteúdo não confiável: o texto em Markdown não pode ter HTML, links, imagens nem títulos, e todo o resto é escapado na renderização. As URLs externas se limitam ao `site` e à `foto`, sempre em https.
 
 Passo a passo para participar: [`CONTRIBUINDO.md`](../CONTRIBUINDO.md).
 

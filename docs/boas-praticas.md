@@ -43,7 +43,8 @@ Como escrevemos código neste projeto. O objetivo é manter o site rápido, aces
 Os arquivos em `src/data/comunidade/` são conteúdo enviado por outras pessoas e devem ser tratados como **não confiáveis**:
 
 - Renderize sempre com `{expressão}` do Astro, que faz o escaping. Nunca use `set:html` com esses dados.
-- Monte links apenas a partir de campos já validados (por exemplo, o link do GitHub sai do username).
+- Monte links apenas a partir de campos já validados: os links das redes saem do usuário, e só `site` e `foto` são URLs completas, sempre em https.
+- O texto do perfil é Markdown renderizado pelo Astro, que deixa HTML e `javascript:` passarem. Por isso o build recusa HTML, links, imagens e títulos no texto. Não afrouxe essas regras.
 - Não afrouxe o schema em `src/content.config.ts` nem as checagens em `src/lib/comunidade.ts` para aceitar HTML, links ou campos extras.
 
 ## Antes de abrir a PR

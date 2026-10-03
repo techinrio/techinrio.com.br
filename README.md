@@ -50,7 +50,7 @@ docs/             documentação do projeto
 
 ## Comunidade
 
-Os membros vivem em `src/data/comunidade/<usuario-github>.yml`, com `nome`, `github` e `bio`. Para entrar na lista ou alterar seus dados, abra uma Pull Request. O passo a passo está em [`CONTRIBUINDO.md`](CONTRIBUINDO.md).
+Cada membro é um arquivo Markdown em `src/data/comunidade/<nome-sobrenome>.md`, com `nome`, `cargo`, foto, tags, links e um texto livre, e ganha uma página em `/comunidade/<nome-sobrenome>/`. Para criar ou alterar o seu perfil, abra uma Pull Request: na página da comunidade, o botão **Criar meu perfil** abre o editor do GitHub com um modelo. O passo a passo está em [`CONTRIBUINDO.md`](CONTRIBUINDO.md).
 
 ## Deploy
 
@@ -62,7 +62,7 @@ Cada merge na `master` roda o build no GitHub Actions e publica o resultado no G
 - [`docs/brand/brand-reference.md`](docs/brand/brand-reference.md): identidade visual
 - [`docs/boas-praticas.md`](docs/boas-praticas.md): boas práticas de código
 - [`docs/git-workflow.md`](docs/git-workflow.md): fluxo de Git, commits e Pull Requests
-- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md) e [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md): decisões de arquitetura
+- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md), [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md) e [`docs/ADR-003-perfil-de-membro.md`](docs/ADR-003-perfil-de-membro.md): decisões de arquitetura
 
 ## Contribuindo
 
