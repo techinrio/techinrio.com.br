@@ -19,7 +19,10 @@ const url = new URL(`/comunidade/${member.slug}/`, Astro.site).href;
 
 <section class={`${styles.profile} section`} aria-labelledby="perfil-nome">
   <div class="container">
-    <a href="/comunidade/" class={styles.back}>&larr; Comunidade</a>
+    <div class={styles.topbar}>
+      <a href="/comunidade/" class={styles.back}>&larr; Comunidade</a>
+      <ShareMenu nome={member.nome} slug={member.slug} url={url} cardPath={cardPath(member)} />
+    </div>
 
     <header class={styles.header}>
       <Avatar nome={member.nome} foto={member.foto} size="lg" />
@@ -35,7 +38,6 @@ const url = new URL(`/comunidade/${member.slug}/`, Astro.site).href;
             </ul>
           )
         }
-        <ShareMenu nome={member.nome} slug={member.slug} url={url} cardPath={cardPath(member)} />
       </div>
     </header>
 

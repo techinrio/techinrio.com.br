@@ -23,9 +23,8 @@ const menuId = `compartilhar-${slug}`;
 ---
 
 <div class={styles.share} data-share data-url={url} data-title={`${nome} — Tech In Rio`} data-text={`${texto} #TechInRio`}>
-  <button type="button" class={`btn btn--outline ${styles.trigger}`} popovertarget={menuId}>
+  <button type="button" class={styles.trigger} popovertarget={menuId} aria-label="Compartilhar perfil" title="Compartilhar">
     <span class={styles.icon} aria-hidden="true"><SocialIcon name="share" /></span>
-    Compartilhar
   </button>
 
   <div id={menuId} popover class={styles.menu} aria-label={`Compartilhar o perfil de ${nome}`}>

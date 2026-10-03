@@ -1,10 +1,29 @@
 .share {
-  margin-top: 1.25rem;
+  display: inline-flex;
 }
 
 .trigger {
-  padding: 0.55rem 1.25rem;
-  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: color var(--transition), background var(--transition);
+}
+
+.trigger:hover {
+  color: var(--orange);
+  background: var(--gray-800);
+}
+
+.trigger .icon {
+  color: inherit;
 }
 
 .icon {
