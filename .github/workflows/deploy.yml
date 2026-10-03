@@ -4,6 +4,11 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      refresh_cards:
+        description: 'Refazer cartões de compartilhamento: "all" ou slugs separados por vírgula (vazio = só os novos)'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -17,19 +22,90 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+
+      # Cartões já gerados ficam na branch og-cache e não são refeitos a cada build.
+      - name: Restore card cache
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          ref: og-cache
+          path: .og-cache
+          persist-credentials: false
+
       - uses: withastro/action@v6
+        env:
+          OG_REFRESH: ${{ inputs.refresh_cards }}
         with:
           node-version: 22
           package-manager: yarn
 
+      # Só os cartões gerados neste build (e a lista dos em uso) seguem para a publicação.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: og-new
+          path: .og-new
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 1
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+
+  # Publica os cartões novos na branch og-cache. Não executa código do repositório
+  # e não bloqueia o deploy se falhar.
+  publish-cards:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: og-new
+          path: new
+
+      - if: steps.download.outcome == 'success'
+        uses: actions/checkout@v7
+        with:
+          ref: og-cache
+          path: cards
+
+      - name: Publish cards
+        if: steps.download.outcome == 'success'
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          cd cards
+          n=0
+          for f in ../new/*.png; do
+            b="$(basename "$f")"
+            if [[ ! "$b" =~ ^[a-z0-9]+(-[a-z0-9]+)*-[0-9a-f]{10}\.png$ ]]; then echo "ignorando nome inesperado: $b"; continue; fi
+            if [ "$(stat -c %s "$f")" -gt 1048576 ]; then echo "ignorando arquivo grande: $b"; continue; fi
+            cp "$f" "$b"; n=$((n + 1))
+          done
+          # Remove cartões que nenhum perfil usa mais.
+          if [ -s ../new/_usados.txt ]; then
+            for f in *.png; do
+              grep -qxF "$f" ../new/_usados.txt || git rm -q "$f"
+            done
+          fi
+          git add -A
+          if git diff --cached --quiet; then echo "Nada a publicar."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "cards: update ($n new)"
+          git push origin HEAD:og-cache

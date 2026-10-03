@@ -14,10 +14,20 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 2
+
+      # Só leitura: reaproveita cartões já gerados; os novos desta PR nunca são publicados.
+      - name: Restore card cache
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          ref: og-cache
+          path: .og-cache
+          persist-credentials: false
 
       # Cadastro de membro: quem não é da organização só altera o próprio perfil.
       # Regras em scripts/check-member-pr.sh; a aprovação de mantenedor segue
