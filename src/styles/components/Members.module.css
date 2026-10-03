@@ -13,14 +13,14 @@
 
 .card {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  align-items: center;
+  gap: 1rem;
   height: 100%;
   background: var(--gray-800);
   border: 1px solid var(--gray-700);
   border-radius: var(--radius);
-  padding: 1.5rem 1.75rem;
-  transition: all var(--transition);
+  padding: 1.25rem 1.5rem;
+  transition: border-color var(--transition), transform var(--transition);
   text-decoration: none;
   color: inherit;
 }
@@ -31,24 +31,23 @@
   color: inherit;
 }
 
-.card h2 {
-  font-size: 1.125rem;
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.info h2 {
+  font-size: 1.0625rem;
   font-weight: 600;
   color: var(--white);
   overflow-wrap: anywhere;
 }
 
-.handle {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--orange);
-  overflow-wrap: anywhere;
-}
-
-.card p {
-  font-size: 0.9375rem;
-  color: var(--gray-200);
-  margin-top: 0.5rem;
+.role {
+  font-size: 0.875rem;
+  color: var(--gray-400);
   overflow-wrap: anywhere;
 }
 
@@ -58,6 +57,9 @@
 }
 
 .contribute {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 3rem;
 }
 

@@ -1,9 +1,10 @@
 import { productionUrl } from '../data/site.js';
+import { getMembers } from '../lib/comunidade';
 
-const pages = ['/', '/comunidade/'];
-
-export function GET() {
+export async function GET() {
   const origin = import.meta.env.SITE || productionUrl;
+  const members = await getMembers();
+  const pages = ['/', '/comunidade/', ...members.map((m) => `/comunidade/${m.slug}/`)];
   const urls = pages
     .map((path) => {
       const loc = new URL(path, origin).href;

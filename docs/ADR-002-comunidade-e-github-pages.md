@@ -6,9 +6,9 @@
 
 ## Decisão
 
-- **Dados da comunidade** em arquivos YAML por membro (`src/data/comunidade/<github>.yml`), versionados no repositório e validados por schema Zod via Astro Content Collections.
+- **Dados da comunidade** em um arquivo por membro (`src/data/comunidade/<slug>.md`), versionados no repositório e validados por schema Zod via Astro Content Collections. O formato está detalhado no [ADR-003](ADR-003-perfil-de-membro.md).
 - **Cadastro e alterações somente por Pull Request:** revisão aberta, aprovação e merge de quem mantém o projeto (CODEOWNERS e proteção da `master`). Issues ficam para problemas, dúvidas e sugestões.
-- **Regra de autoria no CI:** o autor da PR precisa ser a pessoa dona do perfil (`github` do arquivo), exceto quem é da organização.
+- **Regra de autoria no CI:** quem não é da organização só altera o próprio perfil: o `github` do arquivo precisa ser o usuário de quem abriu a PR.
 - **Hospedagem:** GitHub Pages, com build e deploy por GitHub Actions a cada push na `master`. O domínio canônico é `www.techinrio.com.br` (`productionUrl` em `src/data/site.js`), e o domínio sem `www` redireciona para ele.
 - **Gerenciador de pacotes:** yarn (o `yarn.lock` é a fonte de verdade).
 

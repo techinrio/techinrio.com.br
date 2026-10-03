@@ -6,8 +6,8 @@
 
 ## Cadastro na comunidade
 
-<!-- Só preencha se esta PR adiciona ou altera um membro. -->
+<!-- Só preencha se esta PR cria, altera ou remove um perfil. -->
 
-- [ ] Alterei somente `src/data/comunidade/<meu-usuario>.yml` (usuário em minúsculas)
-- [ ] `nome`, `github` e `bio` preenchidos, sem HTML nem links
-- [ ] A PR foi aberta pela conta do usuário informado em `github`
+- [ ] Alterei somente o meu arquivo `src/data/comunidade/<nome-sobrenome>.md` (e a minha foto em `public/img/comunidade/`, se for o caso)
+- [ ] `nome` e `cargo` preenchidos, e o texto sem HTML, links, imagens nem títulos
+- [ ] O campo `github` é o meu usuário, e a PR foi aberta pela minha conta
