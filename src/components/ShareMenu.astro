@@ -1,0 +1,117 @@
+---
+import styles from '../styles/components/ShareMenu.module.css';
+import SocialIcon from './SocialIcon.astro';
+
+interface Props {
+  nome: string;
+  slug: string;
+  url: string;
+  cardPath: string;
+}
+
+const { nome, slug, url, cardPath } = Astro.props;
+
+const texto = `${nome} é membro oficial da Tech In Rio, a comunidade de tecnologia mais carioca de todo Brasil. Conheça o perfil:`;
+const enc = encodeURIComponent;
+const redes = [
+  { tipo: 'linkedin', label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}` },
+  { tipo: 'x', label: 'X', href: `https://x.com/intent/post?text=${enc(texto)}&url=${enc(url)}&hashtags=TechInRio` },
+  { tipo: 'whatsapp', label: 'WhatsApp', href: `https://wa.me/?text=${enc(`${texto} ${url} #TechInRio`)}` },
+  { tipo: 'facebook', label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}` },
+];
+const menuId = `compartilhar-${slug}`;
+---
+
+<div class={styles.share} data-share data-url={url} data-title={`${nome} — Tech In Rio`} data-text={`${texto} #TechInRio`}>
+  <button type="button" class={`btn btn--outline ${styles.trigger}`} popovertarget={menuId}>
+    <span class={styles.icon} aria-hidden="true"><SocialIcon name="share" /></span>
+    Compartilhar
+  </button>
+
+  <div id={menuId} popover class={styles.menu} aria-label={`Compartilhar o perfil de ${nome}`}>
+    <p class={styles.title}>Compartilhar perfil</p>
+    <ul class={styles.list} role="list">
+      <li>
+        <button type="button" class={styles.item} data-copy hidden>
+          <span class={styles.icon} aria-hidden="true"><SocialIcon name="link" /></span>
+          Copiar link
+        </button>
+      </li>
+      <li>
+        <button type="button" class={styles.item} data-native hidden>
+          <span class={styles.icon} aria-hidden="true"><SocialIcon name="share" /></span>
+          Mais opções…
+        </button>
+      </li>
+      {
+        redes.map((rede) => (
+          <li>
+            <a href={rede.href} target="_blank" rel="noopener noreferrer" class={styles.item}>
+              <span class={styles.icon} aria-hidden="true"><SocialIcon name={rede.tipo} /></span>
+              {rede.label}
+              <span class="sr-only">(abre em nova aba)</span>
+            </a>
+          </li>
+        ))
+      }
+      <li class={styles.separador}>
+        <a href={cardPath} download={`tech-in-rio-${slug}.png`} class={styles.item}>
+          <span class={styles.icon} aria-hidden="true"><SocialIcon name="download" /></span>
+          Baixar cartão (PNG)
+        </a>
+      </li>
+    </ul>
+    <p class={styles.status} role="status" aria-live="polite" data-status></p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-share]').forEach((root) => {
+    const { url = '', title = '', text = '' } = root.dataset;
+    const copy = root.querySelector<HTMLButtonElement>('[data-copy]');
+    const native = root.querySelector<HTMLButtonElement>('[data-native]');
+    const status = root.querySelector<HTMLElement>('[data-status]');
+    const menu = root.querySelector<HTMLElement>('[popover]');
+
+    const say = (msg: string) => {
+      if (status) status.textContent = msg;
+    };
+
+    // Plano B para navegadores que bloqueiam a API de área de transferência.
+    const copiarPlanoB = () => {
+      const campo = document.createElement('textarea');
+      campo.value = url;
+      campo.setAttribute('readonly', '');
+      campo.style.position = 'fixed';
+      campo.style.opacity = '0';
+      (menu ?? document.body).appendChild(campo);
+      campo.select();
+      const ok = document.execCommand('copy');
+      campo.remove();
+      return ok;
+    };
+
+    if (copy) copy.hidden = false;
+    if (native && typeof navigator.share === 'function') native.hidden = false;
+
+    copy?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        say('Link copiado!');
+      } catch {
+        say(copiarPlanoB() ? 'Link copiado!' : 'Não foi possível copiar. Copie o endereço pela barra do navegador.');
+      }
+    });
+
+    native?.addEventListener('click', async () => {
+      try {
+        await navigator.share({ title, text, url });
+        menu?.hidePopover();
+      } catch {
+        // compartilhamento cancelado
+      }
+    });
+
+    menu?.addEventListener('toggle', () => say(''));
+  });
+</script>

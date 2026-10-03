@@ -3,6 +3,8 @@ import { render } from 'astro:content';
 import styles from '../styles/components/MemberProfile.module.css';
 import Avatar from './Avatar.astro';
 import SocialIcon from './SocialIcon.astro';
+import ShareMenu from './ShareMenu.astro';
+import { cardPath } from '../lib/og-membro';
 import type { Member } from '../lib/comunidade';
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 const { member } = Astro.props;
 const { Content } = await render(member.entry);
 const temTexto = Boolean(member.entry.body?.trim());
+const url = new URL(`/comunidade/${member.slug}/`, Astro.site).href;
 ---
 
 <section class={`${styles.profile} section`} aria-labelledby="perfil-nome">
@@ -32,6 +35,7 @@ const temTexto = Boolean(member.entry.body?.trim());
             </ul>
           )
         }
+        <ShareMenu nome={member.nome} slug={member.slug} url={url} cardPath={cardPath(member)} />
       </div>
     </header>
 

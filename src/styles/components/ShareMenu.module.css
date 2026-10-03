@@ -1,0 +1,88 @@
+.share {
+  margin-top: 1.25rem;
+}
+
+.trigger {
+  padding: 0.55rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--orange);
+}
+
+.icon :global(svg) {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.menu {
+  margin: auto;
+  width: min(92vw, 22rem);
+  padding: 1.25rem;
+  background: var(--gray-800);
+  color: var(--white);
+  border: 1px solid var(--gray-700);
+  border-radius: var(--radius);
+}
+
+.menu::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 0.75rem;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.separador {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--gray-700);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--white);
+  font: inherit;
+  font-size: 1rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.item:hover {
+  background: var(--gray-700);
+  color: var(--white);
+}
+
+.item[hidden] {
+  display: none;
+}
+
+.status {
+  min-height: 1.25rem;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--gray-200);
+}
