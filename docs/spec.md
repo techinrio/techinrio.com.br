@@ -13,13 +13,15 @@ Quem usa o site:
 
 | Rota | O que é |
 |------|---------|
-| `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais) e faça parte |
+| `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais), parceiros e faça parte |
 | `/comunidade/` | Lista dos membros da comunidade |
 | `/comunidade/<slug>/` | Perfil de cada membro |
 | `/404.html` | Página de erro |
 | `/robots.txt`, `/sitemap.xml`, `/site.webmanifest` | Arquivos gerados no build para buscadores e navegadores |
 
 Os canais e chamadas para ação ficam em `src/data/socials.js`; os metadados do site, em `src/data/site.js`.
+
+A seção de parceiros mostra a logo, o nome e os links (site e redes) de cada parceiro, na ordem de `src/data/partners.js`. As logos ficam em `public/img/parceiros/`. Mudanças na lista passam por Pull Request e revisão de quem mantém o projeto.
 
 ## 3. Comunidade
 
