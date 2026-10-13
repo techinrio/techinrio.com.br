@@ -1,0 +1,46 @@
+---
+import styles from '../styles/components/Partners.module.css';
+import SocialIcon from './SocialIcon.astro';
+import { partners } from '../data/partners.js';
+
+const linkLabels = { site: 'Site', instagram: 'Instagram', x: 'X', youtube: 'YouTube' };
+---
+
+<section id="parceiros" class="section" aria-labelledby="partners-title">
+  <div class="container">
+    <span class="section-label" aria-hidden="true">// parceiros</span>
+    <h2 id="partners-title" class="section-title">Nossos parceiros</h2>
+
+    <ul class={styles.grid} role="list">
+      {partners.map((partner) => (
+        <li class={styles.card}>
+          <span class={styles.logo}>
+            <img
+              src={partner.logo}
+              alt=""
+              width={partner.width}
+              height={partner.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <h3 class={styles.name}>{partner.name}</h3>
+          <ul class={styles.links} role="list">
+            {partner.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${linkLabels[link.id]} de ${partner.name} (abre em nova aba)`}
+                >
+                  <SocialIcon name={link.id} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
