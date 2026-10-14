@@ -1,0 +1,211 @@
+.deck {
+  background: var(--black);
+}
+
+/* Sem JavaScript, os slides ficam empilhados e a página rola normalmente. */
+.deck:not([data-ready]) .stage {
+  display: grid;
+  gap: 1rem;
+}
+
+.deck[data-ready] {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.deck[data-ready] .stage {
+  position: relative;
+  width: min(100vw, calc(100dvh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  container-type: inline-size;
+  touch-action: pan-y pinch-zoom;
+}
+
+.stage:focus {
+  outline: none;
+}
+
+.deck[data-ready] [data-slide] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--transition),
+    visibility var(--transition);
+}
+
+.deck[data-ready] [data-slide][data-active] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.chrome {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6cqi 3.2cqi 1.8cqi;
+  font-size: clamp(0.75rem, 1.1cqi, 1.5rem);
+  pointer-events: none;
+}
+
+.chrome[hidden] {
+  display: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.brand img {
+  height: 1.3em;
+  width: auto;
+}
+
+.brand span {
+  color: var(--orange);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  pointer-events: auto;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  padding: 0;
+  background: transparent;
+  color: var(--gray-200);
+  border: 1px solid var(--gray-700);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.control:hover:not(:disabled) {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.control:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.control[hidden] {
+  display: none;
+}
+
+.control svg {
+  width: 1.4em;
+  height: 1.4em;
+  fill: currentColor;
+}
+
+.counter {
+  min-width: 5.5em;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--gray-400);
+}
+
+.progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 0.3cqi;
+  min-height: 2px;
+  background: var(--gray-800);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+/* Tela em pé (celular): sobra espaço embaixo do slide, então os controles saem de cima do conteúdo. */
+@media (max-aspect-ratio: 4 / 3) {
+  .deck[data-ready] .stage {
+    overflow: visible;
+  }
+
+  .chrome {
+    inset: 100% 0 auto;
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .progress {
+    inset: 0 0 auto;
+  }
+}
+
+.blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #000;
+}
+
+.blackout[hidden] {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  .deck[data-ready] {
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .deck[data-ready] .stage,
+  .deck:not([data-ready]) .stage {
+    display: block;
+    width: 100%;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .deck[data-ready] [data-slide] {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  [data-slide] {
+    break-after: page;
+  }
+
+  .chrome,
+  .blackout {
+    display: none;
+  }
+}

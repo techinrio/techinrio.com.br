@@ -1,0 +1,475 @@
+/* Medidas em em: a base vem do slide (Slide.module.css) e acompanha o tamanho da tela. */
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.title {
+  font-size: 2.6em;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 22em;
+}
+
+.display {
+  font-size: 4.2em;
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 14em;
+}
+
+.title span,
+.display span {
+  color: var(--orange);
+}
+
+.lead {
+  font-size: 1.15em;
+  color: var(--gray-200);
+  line-height: 1.6;
+  max-width: 34em;
+}
+
+.note,
+.footnote {
+  color: var(--gray-400);
+}
+
+.note {
+  font-size: 0.85em;
+}
+
+.footnote {
+  font-size: 0.65em;
+}
+
+.callout {
+  align-self: flex-start;
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--orange);
+  background: rgba(250, 127, 1, 0.1);
+  border: 1px solid rgba(250, 127, 1, 0.2);
+  border-radius: 0.5em;
+  padding: 0.7em 1.1em;
+}
+
+/* Capa */
+.cover {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3em;
+}
+
+.coverText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 1.4em;
+  font-weight: 800;
+}
+
+.wordmark img {
+  height: 1.3em;
+  width: auto;
+}
+
+.wordmark span {
+  color: var(--orange);
+}
+
+.coverSymbol {
+  width: 16em;
+  height: auto;
+}
+
+/* Cards (mesmo desenho dos cards da home) */
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: 1em;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: 0.6em;
+  padding: 1.2em 1.3em;
+}
+
+.cardIndex {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.cardTitle {
+  font-size: 1.05em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cardText {
+  font-size: 0.85em;
+  color: var(--gray-200);
+  line-height: 1.5;
+}
+
+/* Números */
+.statGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+  width: 100%;
+}
+
+.groupTitle {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 0.6em;
+}
+
+.stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: 1em;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: 0.6em;
+  padding: 1em 1.2em;
+}
+
+.statNumber {
+  font-size: 2.2em;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--orange);
+}
+
+.statLabel {
+  font-size: 0.75em;
+  color: var(--gray-400);
+  line-height: 1.4;
+}
+
+/* Linha do tempo */
+.timeline {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9em 1.4em;
+  width: 100%;
+}
+
+.timelineItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15em;
+  padding-left: 0.8em;
+  border-left: 2px solid var(--gray-700);
+}
+
+.timelineDate {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--orange);
+}
+
+.timelineName {
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.timelinePlace {
+  font-size: 0.65em;
+  color: var(--gray-400);
+}
+
+.badge {
+  margin-top: 0.3em;
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  color: var(--orange);
+  background: rgba(250, 127, 1, 0.1);
+  border: 1px solid rgba(250, 127, 1, 0.2);
+  border-radius: 100px;
+  padding: 0.2em 0.7em;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.chipsCenter {
+  justify-content: center;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  color: var(--gray-200);
+  border: 1px solid var(--gray-700);
+  border-radius: 100px;
+  padding: 0.35em 0.9em;
+}
+
+/* Fotos */
+.photos {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0.6em;
+  width: 100%;
+  height: 21em;
+}
+
+.photos li {
+  position: relative;
+  min-height: 0;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5em;
+  overflow: hidden;
+  background: var(--gray-800);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo figcaption {
+  position: absolute;
+  left: 0.6em;
+  bottom: 0.6em;
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--white);
+  background: rgba(11, 11, 11, 0.8);
+  border-radius: 100px;
+  padding: 0.3em 0.8em;
+}
+
+/* Retratos */
+.portraits {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em 1.2em;
+  max-width: 51em;
+  margin-top: 0.4em;
+}
+
+.portraits li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+  width: 6.2em;
+}
+
+.portraits img {
+  width: 5.6em;
+  height: 5.6em;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--gray-700);
+}
+
+.portraits span {
+  font-size: 0.7em;
+  color: var(--gray-200);
+  text-align: center;
+}
+
+/* Texto + imagem lado a lado */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: 3em;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+}
+
+.split .title {
+  font-size: 2.3em;
+}
+
+.split .lead {
+  font-size: 1em;
+}
+
+.screenshot {
+  border: 1px solid var(--gray-700);
+  border-radius: 0.6em;
+  overflow: hidden;
+  background: var(--gray-800);
+}
+
+.screenshot img {
+  width: 100%;
+  height: auto;
+}
+
+/* Botões nos slides acompanham a escala do slide */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.button {
+  font-size: 0.9em;
+  padding: 0.8em 1.6em;
+}
+
+/* Parceiros (mesmo fundo claro das logos na home) */
+.logos {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 1em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17em;
+  height: 9em;
+  padding: 1.4em 2em;
+  background: #fff;
+  border-radius: 0.6em;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Comunidades parceiras: logos claras, então ficam em cards escuros */
+.communities {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: 1em;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.community {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7em;
+  padding: 1.2em 1.4em;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: 0.6em;
+}
+
+.community img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Fechamento */
+.closing {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4em;
+}
+
+.closing > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1em;
+}
+
+.channels {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  margin-top: 0.4em;
+}
+
+.channels li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.channels svg {
+  width: 1.2em;
+  height: 1.2em;
+  color: var(--orange);
+}
+
+.qr {
+  display: block;
+  width: 16em;
+  border: 0.25em solid var(--orange);
+  border-radius: 0.8em;
+  overflow: hidden;
+}
+
+.qr img {
+  width: 100%;
+  height: auto;
+}

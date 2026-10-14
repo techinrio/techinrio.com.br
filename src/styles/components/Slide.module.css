@@ -1,0 +1,44 @@
+/* Cada slide é um quadro 16:9. O texto cresce junto com a largura do slide (unidades cqi). */
+.slide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  container-type: inline-size;
+  background: var(--black);
+  color: var(--white);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 75% 15%, rgba(250, 127, 1, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 15% 85%, rgba(250, 127, 1, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.alt {
+  background: var(--gray-900);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1em;
+  padding: 4em 5.5em 5.5em;
+  font-size: 1.5cqi;
+  line-height: 1.45;
+}
+
+.center .inner {
+  align-items: center;
+  text-align: center;
+}

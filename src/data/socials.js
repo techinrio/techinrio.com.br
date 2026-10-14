@@ -12,6 +12,13 @@ export const contribute = {
   href: 'https://github.com/techinrio/docs/blob/master/CONTRIBUICOES.md',
 };
 
+export const codeOfConduct = {
+  name: 'Código de Conduta',
+  href: 'https://github.com/techinrio/docs/blob/master/CODIGO-DE-CONDUTA.md',
+};
+
+export const linkHub = 'https://beacons.ai/techinrio';
+
 export const email = 'contato@techinrio.com';
 
 export const channels = [

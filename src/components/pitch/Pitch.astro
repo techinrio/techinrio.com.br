@@ -1,0 +1,426 @@
+---
+import { Image } from 'astro:assets';
+import styles from '../../styles/components/Pitch.module.css';
+import Deck from './Deck.astro';
+import Slide from './Slide.astro';
+import SocialIcon from '../SocialIcon.astro';
+import { events } from '../../data/events.js';
+import { community as communityStats, followers, statsUpdatedAt } from '../../data/stats.js';
+import { historyPeople } from '../../data/history.js';
+import { partnerCommunities, partners } from '../../data/partners.js';
+import { codeOfConduct, community, linkHub } from '../../data/socials.js';
+import { productionUrl } from '../../data/site.js';
+import plateia from '../../assets/pitch/eventos/dados-in-rio-2025-plateia.jpg';
+import publico from '../../assets/pitch/eventos/dados-in-rio-2025-publico.jpg';
+import painel from '../../assets/pitch/eventos/dados-in-rio-2025-painel.jpg';
+import softSkills from '../../assets/pitch/eventos/soft-skills-de-cria-2024.jpg';
+import techInWeb from '../../assets/pitch/eventos/tech-in-web-2023.jpg';
+import resenha from '../../assets/pitch/eventos/tech-in-web-2023-resenha.jpg';
+import findTech from '../../assets/pitch/findtech.jpg';
+
+const months = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const monthYear = (date: string) => {
+  const [year, month] = date.split('-');
+  return `${months[Number(month) - 1]} ${year}`;
+};
+const sum = (values: number[]) => values.reduce((total, value) => total + value, 0);
+const thousands = (n: number) => `${(Math.floor(n / 100) / 10).toLocaleString('pt-BR')} mil`;
+
+const inPerson = events.filter((event) => event.format === 'presencial');
+const online = events.filter((event) => event.format === 'online');
+const withRegistrations = events.filter((event) => event.registrations);
+const registrations = sum(withRegistrations.map((event) => event.registrations ?? 0));
+const averageRegistrations = Math.round(registrations / withRegistrations.length / 10) * 10;
+const streams = events.filter((event) => event.views);
+const views = sum(streams.map((event) => event.views ?? 0));
+const followersTotal = sum(Object.values(followers));
+const neighborhoods = [...new Set(inPerson.map((event) => event.neighborhood))];
+
+const eventStats = [
+  { value: '2023', label: 'Ano em que a gente nasceu' },
+  { value: String(events.length), label: `Encontros: ${inPerson.length} presenciais e ${online.length} online` },
+  { value: `+${Math.floor(registrations / 100) * 100}`, label: `Inscrições nos meetups, média de ~${averageRegistrations} por evento` },
+  { value: `+${thousands(views)}`, label: `Visualizações em ${streams.length} transmissões ao vivo` },
+];
+const communityStatsList = [
+  { value: `+${communityStats.whatsapp}`, label: 'Pessoas no WhatsApp, o papo de todo dia' },
+  { value: String(communityStats.discord), label: 'Pessoas no Discord' },
+  { value: `+${thousands(followersTotal)}`, label: 'Seguidores no Instagram, LinkedIn, X e YouTube' },
+];
+
+const photos = [
+  { src: plateia, caption: 'Dados In Rio · 2025', alt: 'Plateia lotada no Dados In Rio, no Arca Hub, vista do alto, com uma palestrante no palco.' },
+  { src: publico, caption: 'Dados In Rio · 2025', alt: 'Público assistindo a uma palestra no Dados In Rio, com o letreiro do Arca Hub ao fundo.' },
+  { src: painel, caption: 'Dados In Rio · 2025', alt: 'Roda de conversa com quatro pessoas no palco do Dados In Rio, com o público assistindo.' },
+  { src: softSkills, caption: 'Soft Skills de Cria · 2024', alt: 'Sala cheia no Soft Skills de Cria, no Le Wagon, durante uma palestra.' },
+  { src: techInWeb, caption: 'Tech In Web · 2023', alt: 'Público do Tech In Web, primeiro meetup presencial da Tech In Rio, de frente para o telão.' },
+  { src: resenha, caption: 'Resenha pós-evento · 2023', alt: 'Selfie da galera na resenha depois do Tech In Web, com um leque de arco-íris.' },
+];
+
+const pitchPartners = partners.filter((partner) => ['FIAP', 'HostGator'].includes(partner.name));
+const siteHost = new URL(productionUrl).host.replace(/^www\./, '');
+---
+
+<Deck label="Apresentação da Tech In Rio">
+  <Slide title="Capa">
+    <div class={styles.cover}>
+      <div class={styles.coverText}>
+        <p class={styles.wordmark}>
+          <img src="/img/symbol-orange.png" alt="" width="1000" height="1000" />
+          Tech<span>In</span>Rio
+        </p>
+        <h1 class={styles.display}>O Rio tá online<br /><span>e roteando.</span></h1>
+        <p class={styles.lead}>A comunidade de tecnologia mais carioca de todo Brasil.</p>
+      </div>
+      <img class={styles.coverSymbol} src="/img/symbol-orange.png" alt="" width="1000" height="1000" />
+    </div>
+  </Slide>
+
+  <Slide title="Como nascemos" tone="alt">
+    <span class={styles.kicker} aria-hidden="true">// como tudo começou</span>
+    <h2 class={styles.title}>Pô, por que a gente mesmo <span>não movimenta?</span></h2>
+    <ol class={styles.cards} style="--cols: 3" role="list">
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>2023</span>
+        <h3 class={styles.cardTitle}>Pé na estrada</h3>
+        <p class={styles.cardText}>
+          A gente pegava estrada pra São Paulo atrás de evento e de um networking que não tinha aqui.
+        </p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>pós-pandemia</span>
+        <h3 class={styles.cardTitle}>O Rio tava parado</h3>
+        <p class={styles.cardText}>
+          O cenário de tecnologia no Rio tava estagnado, quase sem encontro pra trocar ideia.
+        </p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>maio de 2023</span>
+        <h3 class={styles.cardTitle}>Nasce a Tech In Rio</h3>
+        <p class={styles.cardText}>
+          Um grupo de amigos decidiu fazer acontecer em vez de esperar. E o Rio voltou a se movimentar.
+        </p>
+      </li>
+    </ol>
+  </Slide>
+
+  <Slide title="Quem somos">
+    <span class={styles.kicker} aria-hidden="true">// quem somos</span>
+    <h2 class={styles.title}>Feita por <span>crias do Rio</span> em movimento</h2>
+    <p class={styles.lead}>
+      Somos uma comunidade de gente apaixonada por tecnologia, de todas as áreas e de todos os cantos da
+      cidade. A gente se junta pra aprender, compartilhar o que sabe e gerar impacto de verdade.
+    </p>
+    <p class={styles.lead}>
+      Aqui não é só linha de código: é gente, é cultura, é rock, samba, praia e favela.
+    </p>
+  </Slide>
+
+  <Slide title="Rio além do cartão postal" tone="alt" align="center">
+    <span class={styles.kicker} aria-hidden="true">// rio além do cartão postal</span>
+    <h2 class={styles.display}>Tecnologia é pra <span>todo mundo</span>, em <span>todo lugar.</span></h2>
+    <p class={styles.lead}>
+      Da Zona Sul à Zona Oeste, a gente quer levar tecnologia pra pertinho de você.
+    </p>
+  </Slide>
+
+  <Slide title="O que a gente faz">
+    <span class={styles.kicker} aria-hidden="true">// atividades</span>
+    <h2 class={styles.title}>O que a gente faz</h2>
+    <ul class={styles.cards} style="--cols: 4" role="list">
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Meetups</h3>
+        <p class={styles.cardText}>Encontros presenciais pra trocar ideia sobre tecnologia, carreira e mercado.</p>
+      </li>
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Lives</h3>
+        <p class={styles.cardText}>Papo ao vivo com profissionais de tecnologia e de áreas vizinhas.</p>
+      </li>
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Projetos</h3>
+        <p class={styles.cardText}>Código feito em grupo, de dentro da comunidade pro mundo.</p>
+      </li>
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Conexão</h3>
+        <p class={styles.cardText}>Gente de todo nível e de toda área, crescendo junto.</p>
+      </li>
+    </ul>
+  </Slide>
+
+  <Slide title="Em números" tone="alt">
+    <span class={styles.kicker} aria-hidden="true">// em números</span>
+    <h2 class={styles.title}>A Tech In Rio <span>em números</span></h2>
+    <div class={styles.statGroups}>
+      <div>
+        <h3 class={styles.groupTitle}>Eventos</h3>
+        <ul class={styles.stats} style="--cols: 4" role="list">
+          {eventStats.map((stat) => (
+            <li class={styles.stat}>
+              <span class={styles.statNumber}>{stat.value}</span>
+              <span class={styles.statLabel}>{stat.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class={styles.groupTitle}>Comunidade</h3>
+        <ul class={styles.stats} style="--cols: 3" role="list">
+          {communityStatsList.map((stat) => (
+            <li class={styles.stat}>
+              <span class={styles.statNumber}>{stat.value}</span>
+              <span class={styles.statLabel}>{stat.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class={styles.footnote}>
+      Números de {monthYear(statsUpdatedAt)}. Inscrições contadas no Guild ({withRegistrations.length} meetups);
+      visualizações no YouTube.
+    </p>
+  </Slide>
+
+  <Slide title="Por onde a gente já passou">
+    <span class={styles.kicker} aria-hidden="true">// nossa trajetória</span>
+    <h2 class={styles.title}>Por onde a gente <span>já passou</span></h2>
+    <ol class={styles.timeline} role="list">
+      {inPerson.map((event) => (
+        <li class={styles.timelineItem}>
+          <span class={styles.timelineDate}>{monthYear(event.date)}</span>
+          <span class={styles.timelineName}>{event.name}</span>
+          <span class={styles.timelinePlace}>{event.place} · {event.neighborhood}</span>
+          {event.note && <span class={styles.badge}>{event.note}</span>}
+        </li>
+      ))}
+    </ol>
+    <p class={styles.chips}>
+      {neighborhoods.map((name) => <span class={styles.chip}>{name}</span>)}
+      <span class={styles.chip}>+ {online.length} encontros online</span>
+    </p>
+  </Slide>
+
+  <Slide title="Fotos dos eventos" tone="alt">
+    <span class={styles.kicker} aria-hidden="true">// na rua</span>
+    <h2 class={styles.title}>Isso aqui é <span>Tech In Rio</span></h2>
+    <ul class={styles.photos} role="list">
+      {photos.map((photo) => (
+        <li>
+          <figure class={styles.photo}>
+            <Image src={photo.src} alt={photo.alt} widths={[640, 1280]} sizes="34vw" loading="eager" />
+            <figcaption>{photo.caption}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </Slide>
+
+  <Slide title="Valores">
+    <span class={styles.kicker} aria-hidden="true">// valores</span>
+    <h2 class={styles.title}>No que a gente <span>acredita</span></h2>
+    <ul class={styles.cards} style="--cols: 4" role="list">
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>01</span>
+        <h3 class={styles.cardTitle}>Acolhimento</h3>
+        <p class={styles.cardText}>
+          Todo mundo é bem-vindo, seja qual for a experiência, a origem, o gênero ou a orientação sexual.
+        </p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>02</span>
+        <h3 class={styles.cardTitle}>Diversidade e inclusão</h3>
+        <p class={styles.cardText}>A gente abre espaço pra quem nunca teve lugar na tecnologia.</p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>03</span>
+        <h3 class={styles.cardTitle}>Tecnologia em todo lugar</h3>
+        <p class={styles.cardText}>Eventos e oportunidades em todos os cantos do Rio, não só no cartão postal.</p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>04</span>
+        <h3 class={styles.cardTitle}>Conhecimento que circula</h3>
+        <p class={styles.cardText}>Quem sabe ensina, quem aprende passa adiante. É assim que a gente cresce.</p>
+      </li>
+    </ul>
+    <p class={styles.note}>
+      Tá tudo no nosso{' '}
+      <a href={codeOfConduct.href} target="_blank" rel="noopener noreferrer">
+        {codeOfConduct.name}<span class="sr-only"> (abre em nova aba)</span>
+      </a>.
+    </p>
+  </Slide>
+
+  <Slide title="Quem fez parte da nossa história" tone="alt" align="center">
+    <span class={styles.kicker} aria-hidden="true">// nossa história</span>
+    <h2 class={styles.title}>Quem fez parte <span>da nossa história</span></h2>
+    <p class={styles.lead}>
+      Gente que botou a mão na massa e ajudou a construir a Tech In Rio. Valeu demais, crias!
+    </p>
+    <ul class={styles.portraits} role="list" aria-label="Fotos de pessoas que fizeram parte da história da Tech In Rio">
+      {historyPeople.map((person) => (
+        <li>
+          <Image src={person.photo} alt={person.name} widths={[160, 320]} sizes="10vw" loading="eager" />
+          {person.name && <span>{person.name}</span>}
+        </li>
+      ))}
+    </ul>
+  </Slide>
+
+  <Slide title="FindTech">
+    <div class={styles.split}>
+      <div class={styles.stack}>
+        <span class={styles.kicker} aria-hidden="true">// projeto da comunidade</span>
+        <h2 class={styles.title}><span>FindTech</span>: nasceu aqui dentro</h2>
+        <p class={styles.lead}>
+          Um projeto feito por gente da comunidade pra ajudar todo mundo a achar eventos de tecnologia
+          perto de você: meetups, workshops, hackathons e muito mais.
+        </p>
+        <p class={styles.lead}>É isso que acontece quando cria se junta pra codar.</p>
+        <p class={styles.actions}>
+          <a class:list={['btn', 'btn--outline', styles.button]} href="https://www.findtech.dev/" target="_blank" rel="noopener noreferrer">
+            findtech.dev<span class="sr-only"> (abre em nova aba)</span>
+          </a>
+        </p>
+      </div>
+      <figure class={styles.screenshot}>
+        <Image
+          src={findTech}
+          alt="Página inicial do FindTech: busca de eventos de tecnologia por estado, filtros por formato e calendário do mês."
+          widths={[800, 1600]}
+          sizes="50vw"
+          loading="eager"
+        />
+      </figure>
+    </div>
+  </Slide>
+
+  <Slide title="Seja cria da Tech In Rio" tone="alt" align="center">
+    <span class={styles.kicker} aria-hidden="true">// bora?</span>
+    <h2 class={styles.display}>Seja cria da <span>Tech In Rio</span></h2>
+    <p class={styles.lead}>
+      A Tech In Rio é feita de crias do Rio de Janeiro em movimento, fazendo o melhor da tecnologia pra
+      compartilhar e gerar impacto. Tem espaço pra você também.
+    </p>
+    <p class:list={[styles.chips, styles.chipsCenter]}>
+      <span class={styles.chip}>Compartilhe conhecimento</span>
+      <span class={styles.chip}>Crie projetos</span>
+      <span class={styles.chip}>Leve um evento pro seu bairro</span>
+      <span class={styles.chip}>Proponha uma live</span>
+    </p>
+  </Slide>
+
+  <Slide title="Compartilhe conhecimento">
+    <span class={styles.kicker} aria-hidden="true">// como ser cria · 1</span>
+    <h2 class={styles.title}>Compartilhe <span>conhecimento</span></h2>
+    <ul class={styles.cards} style="--cols: 3" role="list">
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Crie conteúdo</h3>
+        <p class={styles.cardText}>Palestra, artigo, vídeo, post: o que você sabe pode destravar alguém.</p>
+      </li>
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Suba no palco</h3>
+        <p class={styles.cardText}>Leva a sua palestra pros nossos eventos e divide o palco com a comunidade.</p>
+      </li>
+      <li class={styles.card}>
+        <h3 class={styles.cardTitle}>Dê a mão a quem tá começando</h3>
+        <p class={styles.cardText}>Todo mundo já foi iniciante. Ajuda quem tá chegando agora.</p>
+      </li>
+    </ul>
+  </Slide>
+
+  <Slide title="Crie projetos em grupo" tone="alt">
+    <span class={styles.kicker} aria-hidden="true">// como ser cria · 2</span>
+    <h2 class={styles.title}>Bota a mão <span>no código</span></h2>
+    <p class={styles.lead}>
+      Junta uma galera da comunidade e tira aquela ideia do papel. Projeto em grupo é aprendizado,
+      portfólio e amizade de uma vez só.
+    </p>
+    <p class={styles.callout}>Foi assim que nasceu o FindTech.</p>
+  </Slide>
+
+  <Slide title="Leve a Tech In Rio pro seu bairro">
+    <span class={styles.kicker} aria-hidden="true">// como ser cria · 3</span>
+    <h2 class={styles.title}>Leva a Tech In Rio <span>pro seu bairro</span></h2>
+    <p class={styles.lead}>Tem um lugar perto de você com a cara de um evento da Tech In Rio? Chama a gente!</p>
+    <ol class={styles.cards} style="--cols: 3" role="list">
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>01</span>
+        <h3 class={styles.cardTitle}>Você chama</h3>
+        <p class={styles.cardText}>Conta pra gente onde é e qual é a ideia.</p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>02</span>
+        <h3 class={styles.cardTitle}>A gente estuda junto</h3>
+        <p class={styles.cardText}>Vemos se dá pra fazer e qual o melhor formato.</p>
+      </li>
+      <li class={styles.card}>
+        <span class={styles.cardIndex}>03</span>
+        <h3 class={styles.cardTitle}>Bora fazer</h3>
+        <p class={styles.cardText}>A gente ajuda com palestrantes, espaço e parcerias.</p>
+      </li>
+    </ol>
+    <p class={styles.actions}>
+      <a class:list={['btn', 'btn--primary', styles.button]} href={community.href} target="_blank" rel="noopener noreferrer">
+        Fala com a gente no WhatsApp<span class="sr-only"> (abre em nova aba)</span>
+      </a>
+    </p>
+  </Slide>
+
+  <Slide title="Proponha uma live" tone="alt">
+    <span class={styles.kicker} aria-hidden="true">// como ser cria · 4</span>
+    <h2 class={styles.title}>Bora fazer <span>uma live?</span></h2>
+    <p class={styles.lead}>
+      Tem um assunto que você domina ou que quer ver na roda? Propõe o tema e a gente faz junto, ao vivo
+      no nosso YouTube.
+    </p>
+    <p class={styles.actions}>
+      <a class:list={['btn', 'btn--primary', styles.button]} href={community.href} target="_blank" rel="noopener noreferrer">
+        Propõe no WhatsApp<span class="sr-only"> (abre em nova aba)</span>
+      </a>
+    </p>
+  </Slide>
+
+  <Slide title="Parceiros" align="center">
+    <span class={styles.kicker} aria-hidden="true">// parceiros</span>
+    <h2 class={styles.title}>Nossos parceiros</h2>
+    <p class={styles.lead}>Valeu por acreditar na tecnologia carioca.</p>
+    <ul class={styles.logos} role="list">
+      {pitchPartners.map((partner) => (
+        <li class={styles.logo}>
+          <img src={partner.logo} alt={partner.name} width={partner.width} height={partner.height} />
+        </li>
+      ))}
+    </ul>
+  </Slide>
+
+  <Slide title="Comunidades parceiras" tone="alt" align="center">
+    <span class={styles.kicker} aria-hidden="true">// comunidades parceiras</span>
+    <h2 class={styles.title}>Acreditamos que comunidades são <span>mais fortes juntas</span></h2>
+    <p class={styles.lead}>Valeu a todas as comunidades que já colaram com a gente.</p>
+    <ul class={styles.communities} style={`--cols: ${partnerCommunities.length}`} role="list">
+      {partnerCommunities.map((partner) => (
+        <li class={styles.community}>
+          <img src={partner.logo} alt={partner.name} width={partner.width} height={partner.height} />
+        </li>
+      ))}
+    </ul>
+  </Slide>
+
+  <Slide title="Chega junto">
+    <div class={styles.closing}>
+      <div>
+        <span class={styles.kicker} aria-hidden="true">// chega junto</span>
+        <h2 class={styles.display}>Chega <span>junto!</span></h2>
+        <p class={styles.lead}>Aponta a câmera e cola com a gente: todos os nossos links num lugar só.</p>
+        <ul class={styles.channels} role="list">
+          <li><SocialIcon name="site" /> {siteHost}</li>
+          <li><SocialIcon name="instagram" /> @techinrio</li>
+          <li><SocialIcon name="whatsapp" /> Comunidade no WhatsApp</li>
+        </ul>
+      </div>
+      <a class={styles.qr} href={linkHub} target="_blank" rel="noopener noreferrer">
+        <img src="/img/pitch/qr-beacons.svg" alt="QR code para os links da Tech In Rio" width="37" height="37" />
+        <span class="sr-only"> (abre em nova aba)</span>
+      </a>
+    </div>
+  </Slide>
+</Deck>

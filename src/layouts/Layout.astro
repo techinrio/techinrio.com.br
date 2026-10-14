@@ -8,9 +8,10 @@ interface Props {
   description?: string;
   ogType?: 'website' | 'article' | 'profile';
   image?: { path: string; alt: string; width?: number; height?: number; type?: string };
+  noindex?: boolean;
 }
 
-const { title = site.title, description = site.description, ogType = 'website', image } = Astro.props;
+const { title = site.title, description = site.description, ogType = 'website', image, noindex = false } = Astro.props;
 const og = {
   path: image?.path ?? site.ogImage.path,
   alt: image?.alt ?? site.ogImage.alt,
@@ -66,7 +67,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="language" content={site.language} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
     <meta name="theme-color" content={site.themeColor} />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonicalUrl} />

@@ -16,6 +16,7 @@ Quem usa o site:
 | `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais), parceiros e faça parte |
 | `/comunidade/` | Lista dos membros da comunidade |
 | `/comunidade/<slug>/` | Perfil de cada membro |
+| `/pitch/` | Apresentação da comunidade em slides, para eventos. Página escondida (ver seção 4) |
 | `/404.html` | Página de erro |
 | `/robots.txt`, `/sitemap.xml`, `/site.webmanifest` | Arquivos gerados no build para buscadores e navegadores |
 
@@ -39,19 +40,30 @@ A rota `/comunidade/` lista as pessoas que fazem a Tech In Rio, e cada pessoa te
 
 Passo a passo para participar: [`CONTRIBUINDO.md`](../CONTRIBUINDO.md).
 
-## 4. Identidade visual
+## 4. Apresentação da comunidade (`/pitch`)
+
+Apresentação em slides usada nos eventos para contar quem somos, como nascemos, o que fazemos, nossos números, valores, parceiros, comunidades parceiras e como ser cria da Tech In Rio.
+
+- **Página escondida:** nenhum link do site aponta para ela, ela fica fora do `sitemap.xml` e tem `noindex, nofollow`. Ela também não aparece no `robots.txt`, para não divulgar o endereço. Escondida não é secreta: o código está neste repositório público.
+- **Visual:** segue a identidade do site ([`brand-reference.md`](brand/brand-reference.md)). Cada slide é um quadro 16:9 que ocupa a tela, e o texto acompanha o tamanho do slide.
+- **Navegação:** setas, `Page Up`/`Page Down` (o que os passadores de slide enviam), `Espaço`, `Home` e `End`. `F` liga a tela cheia e `B` ou `.` escurecem a tela. Há botões na tela, deslizar no celular e o número do slide no endereço (`/pitch/#5`). Sem JavaScript, os slides aparecem um embaixo do outro.
+- **Plano B offline:** imprimir a página em PDF gera um slide por página.
+- **Conteúdo:** os encontros ficam em `src/data/events.js` (de onde saem os números de eventos, inscrições e visualizações), os números da comunidade em `src/data/stats.js` (atualize a data junto) e as pessoas que fizeram parte da nossa história em `src/data/history.js` (preencha `name` para mostrar o nome e usar como texto alternativo). Os parceiros vêm de `src/data/partners.js`, filtrados no componente, e as comunidades parceiras de `partnerCommunities`, no mesmo arquivo (logos em `public/img/comunidades-parceiras/`).
+- **Fotos:** ficam em `src/assets/pitch/` (inclusive o print do FindTech) e são otimizadas no build. Os retratos são quadrados, com o rosto no centro do círculo. Antes de entrar no repositório, toda foto é aprovada por quem mantém o projeto e vai sem metadados (sem localização GPS). O QR code do último slide (`public/img/pitch/qr-beacons.svg`) aponta para o Beacons da comunidade.
+
+## 5. Identidade visual
 
 Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](brand/brand-reference.md), que consolida o manual de identidade visual oficial da Tech In Rio. Toda mudança visual deve seguir esse guia.
 
-## 5. Performance
+## 6. Performance
 
 - Site estático gerado pelo Astro, com HTML pronto no build e sem JS por padrão.
-- O JavaScript no cliente se limita ao menu mobile e aos botões *Copiar link* e *Mais opções* do menu de compartilhar.
+- O JavaScript no cliente se limita ao menu mobile, aos botões *Copiar link* e *Mais opções* do menu de compartilhar e à navegação da apresentação (`/pitch`).
 - Imagens otimizadas e sem arquivos grandes desnecessários.
 - Fontes carregadas com `preconnect` e `display=swap`.
 - Bibliotecas apenas quando indispensáveis. Além do Astro, usamos `satori` e `sharp` apenas no build, para gerar os cartões de compartilhamento (ADR-004).
 
-## 6. Acessibilidade
+## 7. Acessibilidade
 
 - Suporte completo a teclado, com link para pular ao conteúdo e foco sempre visível.
 - Contraste adequado entre texto e fundo.
@@ -60,7 +72,7 @@ Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](b
 - Textos alternativos úteis nas imagens e respeito a `prefers-reduced-motion`.
 - Não depender só de cor para comunicar informação.
 
-## 7. SEO e compartilhamento
+## 8. SEO e compartilhamento
 
 - Idioma `pt-BR` configurado no documento.
 - `title` e `description` por página, com URL canônica.
