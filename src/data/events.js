@@ -1,4 +1,4 @@
-// Encontros da Tech In Rio, do mais antigo ao mais recente. Usado na apresentação (/pitch).
+// Encontros da Tech In Rio, do mais antigo ao mais recente. Usado na apresentação (/seliga).
 // `registrations`: inscrições no Guild (confirmadas + lista de espera), só quando a inscrição foi feita lá.
 // `views`: visualizações da transmissão no YouTube, quando houve.
 export const events = [
