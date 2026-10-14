@@ -1,0 +1,23 @@
+---
+import styles from '../../styles/components/Slide.module.css';
+
+interface Props {
+  title: string;
+  tone?: 'glow' | 'alt';
+  align?: 'start' | 'center';
+}
+
+const { title, tone = 'glow', align = 'start' } = Astro.props;
+---
+
+<section
+  class:list={[styles.slide, styles[tone], align === 'center' && styles.center]}
+  aria-roledescription="slide"
+  aria-label={title}
+  data-slide
+  data-title={title}
+>
+  <div class={styles.inner}>
+    <slot />
+  </div>
+</section>
