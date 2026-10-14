@@ -1,4 +1,4 @@
-// Números da comunidade usados na apresentação (/pitch).
+// Números da comunidade usados na apresentação (/seliga).
 // Atualize os valores junto com `statsUpdatedAt`. Os números de eventos saem de `events.js`.
 export const statsUpdatedAt = '2026-10-13';
 

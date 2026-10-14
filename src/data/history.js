@@ -1,4 +1,4 @@
-// Pessoas que fizeram parte da história da Tech In Rio (slide "Quem fez parte da nossa história" do /pitch).
+// Pessoas que fizeram parte da história da Tech In Rio (slide "Quem fez parte da nossa história" do /seliga).
 // Preencha `name` quando souber o nome: ele aparece embaixo da foto e vira o texto alternativo.
 // Fotos em src/assets/pitch/historia/, quadradas e sem metadados.
 import cria01 from '../assets/pitch/historia/cria-01.jpg';

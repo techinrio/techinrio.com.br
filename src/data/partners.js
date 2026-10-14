@@ -32,7 +32,7 @@ export const partners = [
   },
 ];
 
-// Comunidades parceiras, exibidas na apresentação (/pitch). A ordem da lista é a ordem do slide.
+// Comunidades parceiras, exibidas na apresentação (/seliga). A ordem da lista é a ordem do slide.
 export const partnerCommunities = [
   { name: 'PHP Rio', logo: '/img/comunidades-parceiras/php-rio.png', width: 297, height: 240 },
   { name: 'He4rt Devs', logo: '/img/comunidades-parceiras/he4rt-devs.png', width: 640, height: 124 },
