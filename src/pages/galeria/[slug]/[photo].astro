@@ -1,0 +1,34 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import PhotoPage from '../../../components/PhotoPage.astro';
+import Footer from '../../../components/Footer.astro';
+import { formatDate, getGallery } from '../../../lib/gallery';
+
+export function getStaticPaths() {
+  return getGallery().flatMap((event) =>
+    event.photos.map((photo) => ({ params: { slug: event.slug, photo: String(photo.number) }, props: { event, photo } })),
+  );
+}
+
+const { event, photo } = Astro.props;
+const total = event.photos.length;
+---
+
+<Layout
+  title={`Foto ${photo.number} de ${total} — ${event.name} | Tech In Rio`}
+  description={`Foto ${photo.number} de ${total} do ${event.name}, evento da Tech In Rio em ${formatDate(event.date)}.`}
+  image={{
+    path: photo.src,
+    alt: `Foto do ${event.name}, evento da Tech In Rio`,
+    width: photo.width,
+    height: photo.height,
+    type: 'image/jpeg',
+  }}
+>
+  <Nav />
+  <main id="main">
+    <PhotoPage event={event} photo={photo} />
+  </main>
+  <Footer />
+</Layout>

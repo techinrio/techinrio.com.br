@@ -1,0 +1,31 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import EventPhotos from '../../../components/EventPhotos.astro';
+import Footer from '../../../components/Footer.astro';
+import { formatDate, getGallery } from '../../../lib/gallery';
+
+export function getStaticPaths() {
+  return getGallery().map((event) => ({ params: { slug: event.slug }, props: { event } }));
+}
+
+const { event } = Astro.props;
+---
+
+<Layout
+  title={`${event.name} — Galeria | Tech In Rio`}
+  description={`Fotos do ${event.name}, evento da Tech In Rio em ${formatDate(event.date)}.`}
+  image={{
+    path: event.cover.src,
+    alt: `Arte oficial do ${event.name}, evento da Tech In Rio`,
+    width: event.cover.width,
+    height: event.cover.height,
+    type: 'image/jpeg',
+  }}
+>
+  <Nav />
+  <main id="main">
+    <EventPhotos event={event} />
+  </main>
+  <Footer />
+</Layout>

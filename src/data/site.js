@@ -1,5 +1,8 @@
 export const productionUrl = 'https://www.techinrio.com.br';
 
+// Base URL of the gallery photos. PUBLIC_PHOTOS_CDN overrides it for local testing.
+export const photosCdn = 'https://fotos.techinrio.com.br';
+
 export const site = {
   name: 'Tech In Rio',
   shortName: 'Tech In Rio',

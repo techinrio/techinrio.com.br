@@ -1,6 +1,8 @@
 // Encontros da Tech In Rio, do mais antigo ao mais recente. Usado na apresentação (/seliga).
 // `registrations`: inscrições no Guild (confirmadas + lista de espera), só quando a inscrição foi feita lá.
 // `views`: visualizações da transmissão no YouTube, quando houve.
+// `slug`: only on events with photos in the gallery (index in src/data/gallery/<slug>.json, page /galeria/<slug>/).
+// `album`: optional https link to the full album, when not every photo is on the site.
 export const events = [
   {
     name: 'Vamos falar de Privacidade de Dados?',
@@ -25,6 +27,7 @@ export const events = [
   },
   {
     name: 'Tech In Web',
+    slug: 'tech-in-web-2023',
     date: '2023-09-09',
     format: 'presencial',
     place: 'SESC Tijuca',
@@ -76,6 +79,7 @@ export const events = [
   },
   {
     name: 'Soft Skills de Cria',
+    slug: 'soft-skills-de-cria-2024',
     date: '2024-03-08',
     format: 'presencial',
     place: 'Le Wagon',
@@ -159,6 +163,7 @@ export const events = [
   },
   {
     name: 'Dados In Rio',
+    slug: 'dados-in-rio-2025',
     date: '2025-05-17',
     format: 'presencial',
     place: 'Arca Hub',
