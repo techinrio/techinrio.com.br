@@ -31,6 +31,6 @@
 - `docs/brand/brand-reference.md` — visual identity
 - `docs/boas-praticas.md` — coding best practices
 - `docs/git-workflow.md` — branches, commits and pull requests
-- `docs/ADR-001-stack.md`, `docs/ADR-002-comunidade-e-github-pages.md`, `docs/ADR-003-perfil-de-membro.md`, `docs/ADR-004-cartao-de-compartilhamento.md` — architecture decisions
+- `docs/ADR-001-stack.md`, `docs/ADR-002-comunidade-e-github-pages.md`, `docs/ADR-003-perfil-de-membro.md`, `docs/ADR-004-cartao-de-compartilhamento.md`, `docs/ADR-005-galeria-de-fotos.md` — architecture decisions
 - `CONTRIBUINDO.md` — contributor guide
 - `README.md` — project overview

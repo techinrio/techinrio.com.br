@@ -2,13 +2,13 @@
 
 Código-fonte de [www.techinrio.com.br](https://www.techinrio.com.br), o site da Tech In Rio, a comunidade de tecnologia mais carioca de todo Brasil.
 
-O site é o ponto de partida para conhecer a comunidade, as atividades e os eventos, e tem uma página com os membros da comunidade em [`/comunidade/`](https://www.techinrio.com.br/comunidade/).
+O site é o ponto de partida para conhecer a comunidade, as atividades e os eventos, e tem uma galeria com as fotos dos nossos eventos em [`/galeria/`](https://www.techinrio.com.br/galeria/). A página de membros (`/comunidade/`) está pausada por enquanto.
 
 ## Stack
 
 - [Astro](https://astro.build) 7, com geração estática e zero JavaScript por padrão
 - CSS puro com custom properties (um CSS Module por componente)
-- JavaScript vanilla, só onde não há alternativa (hoje, o menu mobile e o menu de compartilhar)
+- JavaScript vanilla, só onde não há alternativa (hoje, o menu mobile, o menu de compartilhar e o pop-up da galeria)
 - Hospedagem no GitHub Pages, com deploy por GitHub Actions
 
 Mantemos o mínimo de JavaScript e de bibliotecas possível. Além do Astro, só usamos `satori` e `sharp` para gerar, no build, o cartão de compartilhamento de cada membro. As decisões estão em [`docs/`](docs).
@@ -38,7 +38,7 @@ src/
 ├── components/   seções e blocos das páginas
 ├── data/         metadados, canais e membros da comunidade (data/comunidade/)
 ├── layouts/      estrutura base das páginas
-├── lib/          leitura e validação dos dados da comunidade
+├── lib/          leitura e validação dos dados da comunidade e da galeria
 ├── pages/        rotas do site
 └── styles/       estilos globais e um CSS Module por componente
 
@@ -48,9 +48,13 @@ docs/             documentação do projeto
 .github/          workflows, templates e regras de revisão
 ```
 
+## Galeria
+
+As imagens são servidas de `https://fotos.techinrio.com.br`. O repositório guarda só o índice de cada evento (`src/data/gallery/<slug>.json`), ligado ao evento pelo `slug` em `src/data/events.js`. Detalhes em [`docs/spec.md`](docs/spec.md) e [`CONTRIBUINDO.md`](CONTRIBUINDO.md).
+
 ## Comunidade
 
-Cada membro é um arquivo Markdown em `src/data/comunidade/<nome-sobrenome>.md`, com `nome`, `cargo`, foto, tags, links e um texto livre, e ganha uma página em `/comunidade/<nome-sobrenome>/`. Para criar ou alterar o seu perfil, abra uma Pull Request: na página da comunidade, o botão **Criar meu perfil** abre o editor do GitHub com um modelo. O passo a passo está em [`CONTRIBUINDO.md`](CONTRIBUINDO.md).
+A página está pausada (fora do menu e do sitemap), mas os perfis seguem no repositório. Cada membro é um arquivo Markdown em `src/data/comunidade/<nome-sobrenome>.md`, com `nome`, `cargo`, foto, tags, links e um texto livre, e ganha uma página em `/comunidade/<nome-sobrenome>/`. Para criar ou alterar o seu perfil, abra uma Pull Request: na página da comunidade, o botão **Criar meu perfil** abre o editor do GitHub com um modelo. O passo a passo está em [`CONTRIBUINDO.md`](CONTRIBUINDO.md).
 
 ## Deploy
 
@@ -62,7 +66,7 @@ Cada merge na `master` roda o build no GitHub Actions e publica o resultado no G
 - [`docs/brand/brand-reference.md`](docs/brand/brand-reference.md): identidade visual
 - [`docs/boas-praticas.md`](docs/boas-praticas.md): boas práticas de código
 - [`docs/git-workflow.md`](docs/git-workflow.md): fluxo de Git, commits e Pull Requests
-- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md), [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md) e [`docs/ADR-003-perfil-de-membro.md`](docs/ADR-003-perfil-de-membro.md) e [`docs/ADR-004-cartao-de-compartilhamento.md`](docs/ADR-004-cartao-de-compartilhamento.md): decisões de arquitetura
+- [`docs/ADR-001-stack.md`](docs/ADR-001-stack.md), [`docs/ADR-002-comunidade-e-github-pages.md`](docs/ADR-002-comunidade-e-github-pages.md) e [`docs/ADR-003-perfil-de-membro.md`](docs/ADR-003-perfil-de-membro.md), [`docs/ADR-004-cartao-de-compartilhamento.md`](docs/ADR-004-cartao-de-compartilhamento.md) e [`docs/ADR-005-galeria-de-fotos.md`](docs/ADR-005-galeria-de-fotos.md): decisões de arquitetura
 
 ## Contribuindo
 

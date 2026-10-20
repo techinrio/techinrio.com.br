@@ -14,8 +14,10 @@ Quem usa o site:
 | Rota | O que é |
 |------|---------|
 | `/` | Página inicial, com as seções: apresentação, quem somos, o que fazemos, conecte-se (canais), parceiros e faça parte |
-| `/comunidade/` | Lista dos membros da comunidade |
-| `/comunidade/<slug>/` | Perfil de cada membro |
+| `/galeria/` | Galeria de fotos dos eventos, agrupada por ano (ver seção 9) |
+| `/galeria/<slug>/` | Fotos de um evento |
+| `/comunidade/` | Lista dos membros da comunidade. Pausada: fora do menu e do sitemap, sem indexação (ver seção 3) |
+| `/comunidade/<slug>/` | Perfil de cada membro (pausado junto com a lista) |
 | `/seliga/` | Apresentação da comunidade em slides, para eventos. Página escondida (ver seção 4) |
 | `/404.html` | Página de erro |
 | `/robots.txt`, `/sitemap.xml`, `/site.webmanifest` | Arquivos gerados no build para buscadores e navegadores |
@@ -27,6 +29,8 @@ A seção de parceiros mostra a logo, o nome e os links (site e redes) de cada p
 ## 3. Comunidade
 
 A rota `/comunidade/` lista as pessoas que fazem a Tech In Rio, e cada pessoa tem uma página própria em `/comunidade/<slug>/`.
+
+**Pausada por enquanto:** as páginas continuam sendo geradas e os perfis seguem valendo, mas saíram do menu e do sitemap e levam `noindex`. Para reativar, volte o link no `Nav.astro`, as rotas no `sitemap.xml.js` e tire o `noindex` das duas páginas.
 
 - Cada membro é um arquivo Markdown `src/data/comunidade/<slug>.md`. O slug é o nome da pessoa em minúsculas, sem acento e com hífen (`maria-silva`), e é o identificador do membro.
 - Campos do frontmatter: `nome` e `cargo` (obrigatórios), `github`, `foto`, `tags` e `links` (opcionais). O corpo do arquivo é um texto opcional em Markdown.
@@ -58,7 +62,7 @@ Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](b
 ## 6. Performance
 
 - Site estático gerado pelo Astro, com HTML pronto no build e sem JS por padrão.
-- O JavaScript no cliente se limita ao menu mobile, aos botões *Copiar link* e *Mais opções* do menu de compartilhar e à navegação da apresentação (`/seliga`).
+- O JavaScript no cliente se limita ao menu mobile, aos botões *Copiar link* e *Mais opções* do menu de compartilhar, à navegação da apresentação (`/seliga`) e ao pop-up de fotos da galeria.
 - Imagens otimizadas e sem arquivos grandes desnecessários.
 - Fontes carregadas com `preconnect` e `display=swap`.
 - Bibliotecas apenas quando indispensáveis. Além do Astro, usamos `satori` e `sharp` apenas no build, para gerar os cartões de compartilhamento (ADR-004).
@@ -81,3 +85,15 @@ Cores, tipografia e regras visuais estão em [`docs/brand/brand-reference.md`](b
 - Dados estruturados (JSON-LD) da organização e do site.
 - `sitemap.xml`, `robots.txt` e `site.webmanifest` gerados no build.
 - A URL de produção está definida em `src/data/site.js`.
+
+## 9. Galeria de fotos
+
+A rota `/galeria/` mostra os eventos que têm fotos, do mais recente ao mais antigo, agrupados por ano, com atalhos para cada ano. Cada card usa a arte oficial do evento como capa. Cada evento tem uma página em `/galeria/<slug>/` com a capa, os dados do evento e a grade com todas as fotos.
+
+- **Pop-up:** clicar numa miniatura abre a foto grande num `<dialog>` nativo, com *Anterior*/*Próxima*, setas do teclado, `Esc` para fechar e deslizar no celular. O endereço muda para o da foto enquanto ela está aberta, para dar para compartilhar.
+- **Página da foto:** `/galeria/<slug>/<n>/` mostra a foto no layout do site, com *Anterior*/*Próxima* e o caminho de volta ao evento. É o que abre sem JavaScript, em nova aba ou por um link compartilhado.
+- **Imagens:** servidas de `https://fotos.techinrio.com.br` (`photosCdn` em `src/data/site.js`). O repositório só guarda o índice de cada evento em `src/data/gallery/<slug>.json`: `cover` (dimensões da capa) e `photos` (lista de `file`, `width`, `height`). Para cada evento, o site usa `<slug>/cover.jpg`, `<slug>/<file>.jpg` (foto grande) e `<slug>/<file>-thumb.jpg` (miniatura). O build não baixa nem processa imagens.
+- **Evento:** vem de `src/data/events.js`. A data do evento é a data das fotos. O evento entra na galeria quando ganha um `slug` (ex.: `dados-in-rio-2025`) e um índice em `src/data/gallery/`. O campo opcional `album` (URL https) mostra o botão *Ver álbum completo*.
+- **Publicação:** preparar e publicar as imagens é tarefa de quem mantém o projeto e acontece fora deste repositório. Aqui entra só o índice, por Pull Request.
+- **Validação no build** (`src/lib/gallery.ts`): índice sem evento correspondente, `slug` repetido, sem capa, sem fotos ou com registro inválido impede o build.
+- **Direito de imagem:** antes de publicar, as fotos são revisadas por quem mantém o projeto. Quem quiser uma foto removida pede por Issue ou pelos canais oficiais; a foto sai do índice e das imagens publicadas.

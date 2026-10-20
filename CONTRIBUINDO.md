@@ -57,6 +57,14 @@ Escreva aqui um texto sobre você. Pode usar **negrito**, *itálico* e listas:
 
 Para atualizar, edite o seu arquivo e abra outra PR. Para sair da lista, abra uma PR que apaga o seu arquivo (e a sua foto, se tiver). Só a própria pessoa pode alterar ou remover o seu perfil.
 
+## Fotos dos eventos
+
+As fotos da galeria ([`/galeria`](https://www.techinrio.com.br/galeria/)) não ficam neste repositório: são publicadas por quem mantém o projeto. Tem fotos de um evento da Tech In Rio? Mande para a organização pelos canais oficiais.
+
+Quem mantém o projeto publica as imagens e abre uma Pull Request com o `slug` do evento em `src/data/events.js` e o índice em `src/data/gallery/<slug>.json` (formato em [`docs/spec.md`](docs/spec.md)).
+
+Só publicamos fotos que a comunidade pode mostrar. Se alguém pedir para tirar uma foto, ela sai do índice e das imagens publicadas.
+
 ## Contribuir com o site
 
 ### Preparar o ambiente
