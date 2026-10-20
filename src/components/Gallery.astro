@@ -1,0 +1,66 @@
+---
+import styles from '../styles/components/Gallery.module.css';
+import { formatDate, getGallery } from '../lib/gallery';
+
+const events = getGallery();
+const years = [...new Set(events.map((e) => e.date.slice(0, 4)))];
+---
+
+<section class={`${styles.gallery} section`} aria-labelledby="gallery-title">
+  <div class="container">
+    <span class="section-label" aria-hidden="true">// galeria</span>
+    <h1 id="gallery-title" class="section-title">Fotos dos nossos eventos</h1>
+    <p class="section-desc">Cada encontro da Tech In Rio, do mais recente ao mais antigo. Escolha um evento para ver as fotos.</p>
+
+    {
+      events.length === 0 ? (
+        <p class={styles.empty}>As fotos estão chegando. Volte em breve!</p>
+      ) : (
+        <>
+          <nav class={styles.years} aria-label="Ir para o ano">
+            <ul role="list">
+              {years.map((year) => (
+                <li>
+                  <a href={`#ano-${year}`}>{year}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {years.map((year) => (
+            <section class={styles.year} aria-labelledby={`ano-${year}`}>
+              <h2 id={`ano-${year}`} class={styles.yearTitle}>{year}</h2>
+              <ul class={styles.grid} role="list">
+                {events
+                  .filter((e) => e.date.startsWith(year))
+                  .map((e) => (
+                    <li>
+                      <a href={`/galeria/${e.slug}/`} class={styles.card}>
+                        <img
+                          src={e.cover.src}
+                          alt=""
+                          width={e.cover.width}
+                          height={e.cover.height}
+                          loading={events.indexOf(e) < 3 ? 'eager' : 'lazy'}
+                          decoding="async"
+                          class={styles.cover}
+                        />
+                        <div class={styles.info}>
+                          <h3>{e.name}</h3>
+                          <p class={styles.meta}>
+                            <time datetime={e.date}>{formatDate(e.date)}</time>
+                            {e.place && <> · {e.place}</>}
+                          </p>
+                          <p class={styles.count}>{e.photos.length === 1 ? '1 foto' : `${e.photos.length} fotos`}</p>
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          ))}
+        </>
+      )
+    }
+  </div>
+</section>

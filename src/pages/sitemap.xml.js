@@ -1,10 +1,10 @@
 import { productionUrl } from '../data/site.js';
-import { getMembers } from '../lib/comunidade';
+import { getGallery } from '../lib/gallery';
 
-export async function GET() {
+export function GET() {
   const origin = import.meta.env.SITE || productionUrl;
-  const members = await getMembers();
-  const pages = ['/', '/comunidade/', ...members.map((m) => `/comunidade/${m.slug}/`)];
+  // The community page is paused and stays out of the sitemap.
+  const pages = ['/', '/galeria/', ...getGallery().map((e) => `/galeria/${e.slug}/`)];
   const urls = pages
     .map((path) => {
       const loc = new URL(path, origin).href;

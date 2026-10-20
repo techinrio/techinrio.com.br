@@ -1,0 +1,40 @@
+---
+import styles from '../styles/components/PhotoPage.module.css';
+import { formatDate, photoPath, type GalleryEvent, type Photo } from '../lib/gallery';
+
+interface Props {
+  event: GalleryEvent;
+  photo: Photo;
+}
+
+const { event, photo } = Astro.props;
+const total = event.photos.length;
+const date = formatDate(event.date);
+const prev = photo.number > 1 ? photoPath(event.slug, photo.number - 1) : null;
+const next = photo.number < total ? photoPath(event.slug, photo.number + 1) : null;
+---
+
+<section class={`${styles.photo} section`} aria-labelledby="photo-title">
+  <div class="container">
+    <a href={`/galeria/${event.slug}/#foto-${photo.number}`} class={styles.back}>&larr; {event.name}</a>
+    <h1 id="photo-title" class={styles.title}>
+      {event.name} <span>· <time datetime={event.date}>{date}</time></span>
+    </h1>
+
+    <figure class={styles.figure}>
+      <img
+        src={photo.src}
+        alt={`Foto ${photo.number} de ${total}, ${event.name}, ${date}`}
+        width={photo.width}
+        height={photo.height}
+        fetchpriority="high"
+      />
+      <figcaption>Foto {photo.number} de {total}</figcaption>
+    </figure>
+
+    <nav class={styles.pager} aria-label="Outras fotos do evento">
+      {prev ? <a href={prev} class="btn btn--outline" rel="prev">&larr; Anterior</a> : <span />}
+      {next ? <a href={next} class="btn btn--outline" rel="next">Próxima &rarr;</a> : <span />}
+    </nav>
+  </div>
+</section>

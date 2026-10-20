@@ -1,0 +1,154 @@
+---
+import styles from '../styles/components/EventPhotos.module.css';
+import { formatDate, photoPath, type GalleryEvent } from '../lib/gallery';
+
+interface Props {
+  event: GalleryEvent;
+}
+
+const { event } = Astro.props;
+const date = formatDate(event.date);
+const total = event.photos.length;
+const location = [event.place, event.neighborhood].filter(Boolean).join(', ');
+---
+
+<section class={`${styles.event} section`} aria-labelledby="event-title">
+  <div class="container">
+    <a href="/galeria/" class={styles.back}>&larr; Galeria</a>
+
+    <header class={styles.header}>
+      <img
+        src={event.cover.src}
+        alt={`Arte oficial do ${event.name}`}
+        width={event.cover.width}
+        height={event.cover.height}
+        class={styles.cover}
+        fetchpriority="high"
+      />
+      <div>
+        <h1 id="event-title" class="section-title">{event.name}</h1>
+        <p class={styles.meta}>
+          <time datetime={event.date}>{date}</time>
+          {location && <> · {location}</>}
+        </p>
+        <p class={styles.count}>{total === 1 ? '1 foto' : `${total} fotos`}</p>
+        {
+          event.album && (
+            <p class={styles.album}>
+              <a href={event.album} target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+                Ver álbum completo
+                <span class="sr-only">abre em nova aba</span>
+              </a>
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <ul class={styles.grid} role="list">
+      {
+        event.photos.map((p, i) => (
+          <li>
+            <a
+              href={photoPath(event.slug, p.number)}
+              id={`foto-${p.number}`}
+              class={styles.photo}
+              data-photo
+              data-src={p.src}
+              data-w={p.width}
+              data-h={p.height}
+            >
+              <img
+                src={p.thumb}
+                alt={`Foto ${p.number} de ${total}, ${event.name}, ${date}`}
+                width={p.width}
+                height={p.height}
+                loading={i < 12 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<dialog class={styles.lightbox} aria-label={`Fotos do ${event.name}`} data-lightbox>
+  <figure class={styles.figure}>
+    <img alt="" />
+    <figcaption aria-live="polite"></figcaption>
+  </figure>
+  <button type="button" class={`${styles.nav} ${styles.prev}`} aria-label="Foto anterior" data-prev>&#8249;</button>
+  <button type="button" class={`${styles.nav} ${styles.next}`} aria-label="Próxima foto" data-next>&#8250;</button>
+  <form method="dialog">
+    <button class={styles.close} aria-label="Fechar">&times;</button>
+  </form>
+</dialog>
+
+<script>
+  // Photo pop-up. Without JS, each thumbnail links to the photo page.
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-photo]')];
+
+  if (dialog && links.length) {
+    const img = dialog.querySelector('img')!;
+    const caption = dialog.querySelector('figcaption')!;
+    const eventUrl = location.pathname;
+    let current = 0;
+
+    const preload = (i: number) => {
+      const l = links[(i + links.length) % links.length];
+      new Image().src = l.dataset.src!;
+    };
+
+    const show = (i: number) => {
+      current = (i + links.length) % links.length;
+      const l = links[current];
+      img.src = l.dataset.src!;
+      img.width = Number(l.dataset.w);
+      img.height = Number(l.dataset.h);
+      img.alt = l.querySelector('img')!.alt;
+      caption.textContent = `${current + 1} de ${links.length}`;
+      history.replaceState(null, '', l.href);
+      preload(current + 1);
+      preload(current - 1);
+    };
+
+    links.forEach((l, i) =>
+      l.addEventListener('click', (e) => {
+        // Modified clicks keep opening the photo page.
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        show(i);
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+      }),
+    );
+
+    dialog.querySelector('[data-prev]')!.addEventListener('click', () => show(current - 1));
+    dialog.querySelector('[data-next]')!.addEventListener('click', () => show(current + 1));
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+    // Clicking outside the photo closes the pop-up.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      history.replaceState(null, '', eventUrl);
+      document.body.style.overflow = '';
+      links[current].focus();
+    });
+
+    let startX: number | null = null;
+    dialog.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
+    dialog.addEventListener('touchend', (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      startX = null;
+      if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+    });
+  }
+</script>
