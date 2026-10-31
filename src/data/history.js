@@ -15,6 +15,9 @@ import cria11 from '../assets/pitch/historia/cria-11.jpg';
 import cria12 from '../assets/pitch/historia/cria-12.jpg';
 import cria13 from '../assets/pitch/historia/cria-13.jpg';
 import cria14 from '../assets/pitch/historia/cria-14.jpg';
+import cria15 from '../assets/pitch/historia/cria-15.jpg';
+import cria16 from '../assets/pitch/historia/cria-16.jpg';
+import cria17 from '../assets/pitch/historia/cria-17.jpg';
 
 export const historyPeople = [
   { photo: cria01, name: 'Natalia Francisco' },
@@ -31,4 +34,7 @@ export const historyPeople = [
   { photo: cria12, name: 'Fagner Lima' },
   { photo: cria13, name: 'Wenny Way' },
   { photo: cria14, name: 'Samara Trindade' },
+  { photo: cria15, name: 'Fran Neves' },
+  { photo: cria16, name: 'Erick' },
+  { photo: cria17, name: 'Larissa Gama' },
 ];
